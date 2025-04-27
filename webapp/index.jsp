@@ -10,15 +10,19 @@
 <head>
     <title>Landing Page</title>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&display=swap" rel="stylesheet">    <style>
         body {
-            font-family: Arial, sans-serif;
             background-color: #F6D8C6;
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: "Gowun Dodum", serif;
+            font-optical-sizing: auto;
+            font-style: normal;
         }
         .head-container {
             width: 40%;
@@ -72,6 +76,18 @@
     </lottie-player>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            <%--var isLoggedIn = <%= isLoggedIn %>;--%>
+
+            setTimeout(function() {
+                window.location.href = '<%= request.getContextPath() %>/login.jsp';
+                <%--if (isLoggedIn) {--%>
+                <%--    window.location.href = '<%= request.getContextPath() %>/home';--%>
+                <%--} else {--%>
+                <%--    window.location.href = '<%= request.getContextPath() %>/login';--%>
+                <%--}--%>
+            }, 4500);
+        });
+        document.addEventListener('DOMContentLoaded', function() {
             const text = "Welcome to our E-Commerce Platform!";
             const typingTarget = document.getElementById('text');
             let index = 0;
@@ -80,7 +96,7 @@
                 if (index < text.length) {
                     typingTarget.textContent += text.charAt(index);
                     index++;
-                    setTimeout(type, 100); // 타이핑 속도
+                    setTimeout(type, 100);
                 }
             }
 
