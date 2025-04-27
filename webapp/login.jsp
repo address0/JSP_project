@@ -20,8 +20,8 @@
         <hr />
         <form action="" method="post">
             <div>
-                <label for="username">아이디: </label>
-                <input type="text" id="username" name="username" placeholder="아이디 입력" required />
+                <label for="email">아이디(이메일): </label>
+                <input type="text" id="email" name="email" placeholder="가입 이메일 입력: ex. abc@kopo.com" required />
             </div>
             <div>
                 <label for="password">비밀번호: </label>

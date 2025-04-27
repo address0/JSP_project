@@ -10,9 +10,9 @@ body {
     align-items: center;
 }
 .user-container {
-    width: 60%;
+    width: 50%;
     max-width: 1200px;
-    height: 60%;
+    height: 70%;
     max-height: 800px;
     padding: 20px;
     background-color: #FFFFFF;
@@ -33,7 +33,7 @@ hr {
     border: 1px solid #E0E0E0;
 }
 form {
-    width: 80%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,11 +48,12 @@ input {
     font-size: 14px;
 }
 label {
-    width: 20%;
+    width: 30%;
     font-size: 18px;
 }
 form > div {
-    width: 60%;
+    position: relative;
+    width: 70%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -71,7 +72,7 @@ button {
     margin: 0px 10px;
     font-weight: bold;
 }
-button[type="submit"] {
+.login-button {
     background-color: #FF6F61;
     border: 2px solid #FF6F61;
     color: white;
@@ -80,14 +81,14 @@ button[type="submit"] {
     padding: 10px 20px;
     border-radius: 4px;
 }
-button[type="submit"]:hover {
+.login-button:hover {
     background-color: #FF4C3B;
     box-shadow: 0 0 4px #FF6F61;
 }
-button[type="submit"]:active {
+.login-button:active {
     background-color: #FF3B2A;
 }
-button[type="submit"]:disabled {
+.login-button:disabled {
     background-color: #E0E0E0;
     cursor: not-allowed;
 }
@@ -103,4 +104,33 @@ button[type="submit"]:disabled {
 .register-button:hover {
     background-color: #F6D8C6;
     box-shadow: 0 0 4px #D0D0D0;
+}
+form p {
+    position: absolute;
+    bottom: -16px;
+    right: 0;
+    font-size: 10px;
+    color: #FF3B2A;
+    font-weight: bold;
+}
+input.valid {
+    border-color: green;
+}
+
+input.invalid {
+    border-color: red;
+}
+
+input.success {
+    border: 1px solid #E0E0E0;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/190/190411.png');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px 20px;
+}
+p.disabled {
+    display: none;
+}
+p.show {
+    display: block;
 }
