@@ -1,13 +1,14 @@
-body {
-    background-color: #F6D8C6;
+* {
     font-family: "Gowun Dodum", serif;
     font-optical-sizing: auto;
     font-style: normal;
+}
+body {
+    background-color: #F6D8C6;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 .user-container {
     width: 60%;
     max-width: 1200px;
@@ -21,4 +22,85 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+h1 {
+    font-size: 32px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+hr {
+    width: 80%;
+    border: 1px solid #E0E0E0;
+}
+form {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    font-size: 14px;
+}
+label {
+    width: 20%;
+    font-size: 18px;
+}
+form > div {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+input:focus {
+    border-color: #FF6F61;
+    outline: none;
+}
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+button {
+    width: 30%;
+    margin: 0px 10px;
+    font-weight: bold;
+}
+button[type="submit"] {
+    background-color: #FF6F61;
+    border: 2px solid #FF6F61;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+button[type="submit"]:hover {
+    background-color: #FF4C3B;
+    box-shadow: 0 0 4px #FF6F61;
+}
+button[type="submit"]:active {
+    background-color: #FF3B2A;
+}
+button[type="submit"]:disabled {
+    background-color: #E0E0E0;
+    cursor: not-allowed;
+}
+.register-button {
+    background-color: #FFFFFF;
+    border: 2px solid #FF6F61;
+    color: #FF3B2A;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+.register-button:hover {
+    background-color: #F6D8C6;
+    box-shadow: 0 0 4px #D0D0D0;
 }

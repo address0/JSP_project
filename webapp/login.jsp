@@ -17,6 +17,21 @@
 <body>
     <div class="user-container">
         <h1>로그인 페이지</h1>
+        <hr />
+        <form action="" method="post">
+            <div>
+                <label for="username">아이디: </label>
+                <input type="text" id="username" name="username" placeholder="아이디 입력" required />
+            </div>
+            <div>
+                <label for="password">비밀번호: </label>
+                <input type="password" id="password" name="password" placeholder="비밀번호 입력" required />
+            </div>
+        </form>
+        <div class="button-container">
+            <button type="submit" class="login-button">로그인</button>
+            <button type="button" class="register-button" onclick="location.href='register.jsp'">회원가입</button>
+        </div>
     </div>
 </body>
 </html>
