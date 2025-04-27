@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('password');
     const confirmPasswordInput = document.getElementById('confirm-password');
     const telInput = document.getElementById('tel');
+    const submitButton = document.querySelector('.login-button');
+
+    const inputs = [emailInput, usernameInput, passwordInput, confirmPasswordInput, telInput];
 
     validateOnInput(emailInput, validateEmail);
     validateOnInput(usernameInput, validateUsername);
@@ -24,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 input.classList.remove('valid');
                 message.classList.add('show');
             }
+            updateSubmitButtonState();
         });
 
         input.addEventListener('blur', function() {
@@ -34,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 input.classList.remove('success');
             }
+            updateSubmitButtonState();
         });
 
         input.addEventListener('focus', function() {
@@ -63,4 +68,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const telRegex = /^\d{11}$/;
         return telRegex.test(value);
     }
+
+    function updateSubmitButtonState() {
+        const allValid = inputs.every(input => input.classList.contains('success'));
+        submitButton.disabled = !allValid;
+    }
+
+    updateSubmitButtonState();
 });

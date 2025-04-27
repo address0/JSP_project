@@ -80,6 +80,7 @@ button {
     font-size: 16px;
     padding: 10px 20px;
     border-radius: 4px;
+    font-weight: bold;
 }
 .login-button:hover {
     background-color: #FF4C3B;
@@ -87,10 +88,6 @@ button {
 }
 .login-button:active {
     background-color: #FF3B2A;
-}
-.login-button:disabled {
-    background-color: #E0E0E0;
-    cursor: not-allowed;
 }
 .register-button {
     background-color: #FFFFFF;
@@ -133,4 +130,10 @@ p.disabled {
 }
 p.show {
     display: block;
+}
+.login-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    border: none;
+    box-shadow: none;
 }
