@@ -18,7 +18,7 @@
     <div class="user-container">
         <h1>회원가입 페이지</h1>
         <hr />
-        <form action="" method="post">
+        <form action="signup" method="post">
             <div>
                 <label for="email">아이디(이메일): </label>
                 <input type="text" id="email" name="email" placeholder="기본 이메일 입력: ex. abc@kopo.com" required autocomplete="off" />
