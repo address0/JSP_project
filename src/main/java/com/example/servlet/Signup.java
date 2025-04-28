@@ -48,10 +48,10 @@ public class Signup extends HttpServlet {
 
             pstmt.executeUpdate();
 
-            response.sendRedirect(request.getContextPath() + "/");
+            response.sendRedirect(request.getContextPath() + "/register.jsp?result=success");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("register.jsp"); // 에러 발생
+            response.sendRedirect(request.getContextPath() + "/register.jsp?result=fail"); // 에러 발생
         }
     }
 }

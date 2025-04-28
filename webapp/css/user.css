@@ -137,3 +137,9 @@ p.show {
     border: none;
     box-shadow: none;
 }
+.swal2-confirm {
+    min-width: 100px;
+}
+.swal2-styled {
+    min-width: 100px;
+}
