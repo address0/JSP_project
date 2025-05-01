@@ -2,7 +2,7 @@
   <artifact name="webapp">
     <output-path>$PROJECT_DIR$/out/artifacts/webapp</output-path>
     <root id="root">
-      <element id="dir-copy" path="$PROJECT_DIR$/webapp" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/webapp" />
     </root>
   </artifact>
 </component>

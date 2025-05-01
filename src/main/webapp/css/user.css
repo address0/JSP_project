@@ -4,7 +4,9 @@
     font-style: normal;
 }
 body {
-    background-color: #F6D8C6;
+    background-image: url("../images/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +17,7 @@ body {
     height: 70%;
     max-height: 800px;
     padding: 20px;
-    background-color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
