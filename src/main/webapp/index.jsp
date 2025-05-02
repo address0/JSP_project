@@ -67,7 +67,7 @@
         <p>E-Commerce 페이지 접속을 환영합니다. 잠시만 기다려 주세요..</p>
     </div>
     <lottie-player
-        src="images/Animation - 1745678753765.json"
+        src="images/landing.json"
         background="transparent"
         speed="1"
         style="width: 400px; height: 400px;"

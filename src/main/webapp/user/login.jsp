@@ -19,7 +19,7 @@
     <div class="user-container">
         <h1>로그인 페이지</h1>
         <hr />
-        <form action="" method="post">
+        <form action="<%= request.getContextPath() %>/login" method="post">
             <div>
                 <label for="email">아이디(이메일): </label>
                 <input type="text" id="email" name="email" placeholder="가입 이메일 입력: ex. abc@kopo.com" required />
@@ -28,11 +28,11 @@
                 <label for="password">비밀번호: </label>
                 <input type="password" id="password"    name="password" placeholder="비밀번호 입력" required />
             </div>
+            <div class="button-container">
+                <button type="submit" class="login-button">로그인</button>
+                <button type="button" class="register-button" onclick="location.href='join.jsp'">회원가입</button>
+            </div>
         </form>
-        <div class="button-container">
-            <button type="submit" class="login-button">로그인</button>
-            <button type="button" class="register-button" onclick="location.href='join.jsp'">회원가입</button>
-        </div>
     </div>
 </body>
 </html>

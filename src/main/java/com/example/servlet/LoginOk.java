@@ -35,28 +35,28 @@ public class LoginOk extends HttpServlet {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                String status = rs.getString("st_status");
-
-                if ("ST02".equals(status)) {
-                    System.out.println("⚠️ 탈퇴 처리된 계정입니다.");
+                String userType = rs.getString("cd_user_type");
+                if ("20".equals(userType)) {
+                    response.sendRedirect(request.getContextPath() + "/user/loginResult.jsp?result=admin");
                     return;
                 }
-                User user = new User();
-                user.setIdUser(rs.getString("id_user"));
-                user.setNmUser(rs.getString("nm_user"));
-                user.setNmPaswd(rs.getString("nm_paswd"));
-                user.setNoMobile(rs.getString("no_mobile"));
-                user.setNmEmail(rs.getString("nm_email"));
-                user.setCdUserType(rs.getString("cd_user_type"));
+                String status = rs.getString("st_status");
+                if ("ST00".equals(status)) {
+                    response.sendRedirect(request.getContextPath() + "/user/loginResult.jsp?result=inactive");
+                    return;
+                }
 
                 HttpSession session = request.getSession();
-                session.setAttribute("loginUser", user);
+                session.setAttribute("id", rs.getString("id_user"));
 
-                response.sendRedirect("index.jsp");
+                response.sendRedirect(request.getContextPath() + "/user/loginResult.jsp?result=success");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/user/loginResult.jsp?result=fail");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/user/loginResult.jsp?result=error");
         }
     }
 }
