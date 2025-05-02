@@ -85,7 +85,7 @@
                 <%--} else {--%>
                 <%--    window.location.href = '<%= request.getContextPath() %>/login';--%>
                 <%--}--%>
-            }, 4500);
+            }, 2000);
         });
         document.addEventListener('DOMContentLoaded', function() {
             const text = "Welcome to our E-Commerce Platform!";
@@ -96,7 +96,7 @@
                 if (index < text.length) {
                     typingTarget.textContent += text.charAt(index);
                     index++;
-                    setTimeout(type, 100);
+                    setTimeout(type, 50);
                 }
             }
 

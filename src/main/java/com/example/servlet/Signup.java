@@ -25,7 +25,7 @@ public class Signup extends HttpServlet {
         String tel = request.getParameter("tel");
         String email = request.getParameter("email");
 
-        try (Connection conn = DBUtil.getConnection()) {
+        try (Connection conn = DBUtil.getConnection(getServletContext())) {
             String countSql = "SELECT COUNT(*) FROM TB_USER";
             PreparedStatement countStmt = conn.prepareStatement(countSql);
             ResultSet rs = countStmt.executeQuery();

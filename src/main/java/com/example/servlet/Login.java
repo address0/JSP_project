@@ -28,7 +28,7 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
 
         String sql = "SELECT * FROM TB_USER WHERE id_user = ? AND nm_paswd = ?";
-        try (Connection conn = DBUtil.getConnection();
+        try (Connection conn = DBUtil.getConnection(getServletContext());
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, email);
             pstmt.setString(2, password);

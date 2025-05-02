@@ -9,7 +9,8 @@
 <html>
 <head>
     <title>Login</title>
-    <link type="text/css" rel="stylesheet" href="css/user.css">
+<%--    <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/user.css">--%>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/user.css?v=<%=System.currentTimeMillis()%>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&display=swap" rel="stylesheet">
