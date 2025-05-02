@@ -79,7 +79,7 @@
             <%--var isLoggedIn = <%= isLoggedIn %>;--%>
 
             setTimeout(function() {
-                window.location.href = 'login.jsp';
+                window.location.href = 'user/login.jsp';
                 <%--if (isLoggedIn) {--%>
                 <%--    window.location.href = '<%= request.getContextPath() %>/home';--%>
                 <%--} else {--%>

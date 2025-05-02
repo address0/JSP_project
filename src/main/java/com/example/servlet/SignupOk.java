@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @WebServlet("/signup")
-public class Signup extends HttpServlet {
+public class SignupOk extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -26,6 +26,16 @@ public class Signup extends HttpServlet {
         String email = request.getParameter("email");
 
         try (Connection conn = DBUtil.getConnection(getServletContext())) {
+            String checkSql = "SELECT COUNT(*) FROM TB_USER WHERE ID_USER = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+            checkStmt.setString(1, id);
+            ResultSet checkRs = checkStmt.executeQuery();
+
+            if (checkRs.next() && checkRs.getInt(1) > 0) {
+                response.sendRedirect(request.getContextPath() + "/user/joinResult.jsp?result=duplicate");
+                return;
+            }
+
             String countSql = "SELECT COUNT(*) FROM TB_USER";
             PreparedStatement countStmt = conn.prepareStatement(countSql);
             ResultSet rs = countStmt.executeQuery();
@@ -37,7 +47,7 @@ public class Signup extends HttpServlet {
             String userType = (userCount == 0) ? "20" : "10";
 
             String insertSql = "INSERT INTO TB_USER (ID_USER, NM_USER, NM_PASWD, NO_MOBILE, NM_EMAIL, CD_USER_TYPE, ST_STATUS, DA_FIRST_DATE) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, 'ST01', SYSDATE)";
+                    "VALUES (?, ?, ?, ?, ?, ?, 'ST00', SYSDATE)";
             PreparedStatement pstmt = conn.prepareStatement(insertSql);
             pstmt.setString(1, id);
             pstmt.setString(2, username);
@@ -46,12 +56,15 @@ public class Signup extends HttpServlet {
             pstmt.setString(5, email);
             pstmt.setString(6, userType);
 
-            pstmt.executeUpdate();
-
-            response.sendRedirect(request.getContextPath() + "/register.jsp?result=success");
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                response.sendRedirect(request.getContextPath() + "/user/joinResult.jsp?result=success");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/user/joinResult.jsp?result=fail");
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/register.jsp?result=fail"); // 에러 발생
+            response.sendRedirect(request.getContextPath() + "/user/joinResult.jsp?result=error");
         }
     }
 }

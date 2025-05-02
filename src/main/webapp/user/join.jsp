@@ -9,17 +9,16 @@
 <html>
 <head>
     <title>Signup</title>
-    <link type="text/css" rel="stylesheet" href="css/user.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>../css/user.css?v=<%=System.currentTimeMillis()%>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="user-container">
         <h1>회원가입 페이지</h1>
         <hr />
-        <form action="signup" method="post">
+        <form action="<%= request.getContextPath() %>/signup" method="post">
             <div>
                 <label for="email">아이디(이메일): </label>
                 <input type="text" id="email" name="email" placeholder="기본 이메일 입력: ex. abc@kopo.com" required autocomplete="off" />
@@ -48,30 +47,6 @@
             <input type="submit" class="login-button" value="회원가입">
         </form>
     </div>
-    <%
-        String result = request.getParameter("result");
-        if (result == null) result = "none";
-    %>
-    <script>
-        const result = "<%= result %>";
-        console.log(result)
-        if (result && result === "success") {
-            Swal.fire({
-                icon: 'success',
-                title: '회원가입 성공',
-                text: '회원가입이 완료되었습니다.',
-                confirmButtonText: '확인'
-            }).then(() => {
-                window.location.href = "index.jsp";
-            });
-        } else if (result && result === "fail") {
-            Swal.fire({
-                icon: 'error',
-                title: '회원가입 실패',
-                text: '회원가입에 실패했습니다. 다시 시도해 주세요.',
-                confirmButtonText: '확인'
-            });
-        }</script>
-    <script src="script/register.js"></script>
+    <script src="../script/register.js"></script>
 </body>
 </html>
