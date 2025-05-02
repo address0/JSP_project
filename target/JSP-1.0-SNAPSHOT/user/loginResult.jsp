@@ -22,12 +22,13 @@
 	%>
 		<h1>로그인 완료</h1>
 		<p>환영합니다! 로그인에 성공했습니다.</p>
-		<button onclick="location.href = '../main/main.jsp'">메인 페이지</button>
+	<button onclick="location.href='<%= request.getContextPath() %>/modify?action=profile&id=<%= session.getAttribute("id") %>'">메인 페이지</button>
 	<% } else if ("admin".equals(loginResult)) {
-            	%>
+            session.setAttribute("manage", "userManage");
+	%>
 		<h1>로그인 완료</h1>
 		<p>관리자님, 환영합니다! 관리자 페이지로 이동합니다.</p>
-		<button onclick="location.href = '../admin/manage.jsp'">관리자 페이지</button>
+		<button onclick="location.href = '/userList'">관리자 페이지</button>
 	<% } else if ("fail".equals(loginResult)) {
 	%>
 		<h1>미등록된 사용자</h1>
