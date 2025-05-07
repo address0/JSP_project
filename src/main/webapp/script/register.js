@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function validateOnInput(input, validateFn) {
         const message = input.nextElementSibling;
+        console.log('submitButton:', submitButton);
 
         input.addEventListener('input', function() {
             if (validateFn(input.value)) {

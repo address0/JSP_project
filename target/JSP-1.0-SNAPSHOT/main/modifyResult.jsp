@@ -31,6 +31,7 @@
     <p>탈퇴 신청이 완료되었습니다. 확인 후 처리하겠습니다.</p>
     <button onclick="location.href = '<%= request.getContextPath() %>/index.jsp'">메인 페이지</button>
 <%
+        session.invalidate();
     } else {
 %>
     <h1>알 수 없는 오류</h1>

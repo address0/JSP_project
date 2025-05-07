@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.example.bean.User" %>
+<%@ page import="com.example.model.User" %>
 <html>
 <head>
 	<title>Profile</title>
@@ -20,7 +20,7 @@
         return;
     }
 %>
-<button onclick="location.href='<%= request.getContextPath() %>/user/logout.jsp'">로그아웃</button>
+<button onclick="location.href='<%= request.getContextPath() %>/user/logout.do'">로그아웃</button>
 <h1>내 정보</h1>
 <div id="profile-container">
     <p><strong>아이디:</strong> <%= user.getIdUser() %></p>

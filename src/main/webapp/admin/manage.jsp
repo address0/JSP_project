@@ -12,11 +12,11 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin.css?v=<%=System.currentTimeMillis()%>">
 </head>
 <body>
-<button onclick="location.href='<%= request.getContextPath() %>/user/logout.jsp'">로그아웃</button>
+<button onclick="location.href='<%= request.getContextPath() %>/user/logout.do'">로그아웃</button>
 <nav>
 	<ul>
-		<li><a href="<%=request.getContextPath()%>/userList">회원 관리</a></li>
-		<li><a href="<%=request.getContextPath()%>/admin/manage.jsp?managePage=productManage">상품 관리</a></li>
+		<li><a href="<%=request.getContextPath()%>/user/list.do">회원 관리</a></li>
+		<li><a href="<%=request.getContextPath()%>/product/list.do">상품 관리</a></li>
 	</ul>
 </nav>
 <div class="manage-container">
