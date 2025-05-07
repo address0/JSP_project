@@ -17,6 +17,7 @@
 	<ul>
 		<li><a href="<%=request.getContextPath()%>/user/list.do">회원 관리</a></li>
 		<li><a href="<%=request.getContextPath()%>/product/list.do">상품 관리</a></li>
+		<li><a href="<%=request.getContextPath()%>/category/topList.do">카테고리 관리</a></li>
 	</ul>
 </nav>
 <div class="manage-container">
@@ -24,8 +25,8 @@
 	String managePage = request.getParameter("managePage");
 	if ("productManage".equals(managePage)) {;
 %> <jsp:include page="productManage.jsp" /> <%
-	} else { %> <jsp:include page="userManage.jsp" /> <%
-	}
+	} else if ("userManage".equals(managePage)) { %> <jsp:include page="userManage.jsp" /> <%
+	} else { %> <jsp:include page="categoryManage.jsp" /> <%}
     %>
 </div>
 </body>

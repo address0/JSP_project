@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.command.Command;
 import com.example.command.user.*;
 import com.example.command.product.*;
+import com.example.command.category.*;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,6 +32,10 @@ public class FrontController extends HttpServlet {
         commandMap.put("/user/join.do", new UserJoinFormCommand());
 
         commandMap.put("/product/list.do", new ProductListCommand());
+
+        commandMap.put("/category/list.do", new CategoryListCommand());
+        commandMap.put("/category/topList.do", new TopCategoryCommand());
+        commandMap.put("/category/subList.do", new SubCategoryCommand());
     }
 
     @Override
