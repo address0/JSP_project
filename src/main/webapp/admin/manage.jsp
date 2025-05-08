@@ -29,5 +29,6 @@
 	} else { %> <jsp:include page="categoryManage.jsp" /> <%}
     %>
 </div>
+<script src="../script/admin.js"></script>
 </body>
 </html>

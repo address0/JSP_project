@@ -19,8 +19,6 @@ public class SubCategoryCommand implements Command {
         List<Category> subCategories = dao.getSubCategories(parentId);
 
         request.setAttribute("subCategories", subCategories);
-        System.out.println(parentId);
-        System.out.println("Subcategories: " + subCategories);
         request.getRequestDispatcher("/admin/subCategory.jsp").forward(request, response);
     }
 }
