@@ -7,8 +7,8 @@ public class Product {
     public String nmProduct;
     public String nmDetailExplain;
     public String idFile;
-    public String dtStartDate;
-    public String dtEndDate;
+    public Date dtStartDate;
+    public Date dtEndDate;
     public Integer qtCustomerPrice;
     public Integer qtSalePrice;
     public Integer qtStock;
@@ -16,32 +16,6 @@ public class Product {
     public String noRegister;
     private Date daFirstDate;
 
-    public Product(String nmProduct, String nmDetailExplain, String dtStartDate, String dtEndDate,
-                   Integer qtSalePrice, Integer qtStock) {
-        this.nmProduct = nmProduct;
-        this.nmDetailExplain = nmDetailExplain;
-        this.dtStartDate = dtStartDate;
-        this.dtEndDate = dtEndDate;
-        this.qtSalePrice = qtSalePrice;
-        this.qtStock = qtStock;
-    }
-
-    public Product(Integer noProduct, String nmProduct, String nmDetailExplain, String idFile,
-                   String dtStartDate, String dtEndDate, Integer qtCustomer, Integer qtSalePrice,
-                   Integer qtStock, Integer qtDeliveryFee, String noRegister, Date daFirstDate) {
-        this.noProduct = noProduct;
-        this.nmProduct = nmProduct;
-        this.nmDetailExplain = nmDetailExplain;
-        this.idFile = idFile;
-        this.dtStartDate = dtStartDate;
-        this.dtEndDate = dtEndDate;
-        this.qtCustomerPrice = qtCustomer;
-        this.qtSalePrice = qtSalePrice;
-        this.qtStock = qtStock;
-        this.qtDeliveryFee = qtDeliveryFee;
-        this.noRegister = noRegister;
-        this.daFirstDate = daFirstDate;
-    }
     public Product() {
         // Default constructor
     }
@@ -69,16 +43,16 @@ public class Product {
     public void setIdFile(String idFile) {
         this.idFile = idFile;
     }
-    public String getDtStartDate() {
+    public Date getDtStartDate() {
         return dtStartDate;
     }
-    public void setDtStartDate(String dtStartDate) {
+    public void setDtStartDate(Date dtStartDate) {
         this.dtStartDate = dtStartDate;
     }
-    public String getDtEndDate() {
+    public Date getDtEndDate() {
         return dtEndDate;
     }
-    public void setDtEndDate(String dtEndDate) {
+    public void setDtEndDate(Date dtEndDate) {
         this.dtEndDate = dtEndDate;
     }
     public Integer getQtCustomerPrice() {

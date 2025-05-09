@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h1>상품 관리</h1>
+<button onclick="location.href='<%= request.getContextPath() %>/product/createForm.do'">상품 등록</button>
 
 <table>
 	<thead>
@@ -30,8 +31,8 @@
 						</c:choose>
 					</td>
 					<td>
-						<button onclick="location.href='productEdit?id=${product.noProduct}'">수정</button>
-						<button onclick="location.href='productDelete?id=${product.noProduct}'">삭제</button>
+						<button onclick="location.href='updateForm.do?id=${product.noProduct}'">수정</button>
+						<button onclick="location.href='delete.do?id=${product.noProduct}'">삭제</button>
 					</td>
 				</tr>
 			</c:forEach>
