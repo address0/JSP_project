@@ -56,7 +56,7 @@ public class UserDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, id);
             pstmt.setString(2, password);
-            try (ResultSet rs = pstmt.executeQuery()) { // ✅ 추가
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     User user = new User();
                     user.setIdUser(rs.getString("id_user"));
@@ -124,7 +124,7 @@ public class UserDAO {
         try (Connection conn = DBUtil.getConnection(context);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, id);
-            try (ResultSet rs = pstmt.executeQuery()) { // ✅ 추가
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     User user = new User();
                     user.setIdUser(rs.getString("ID_USER"));

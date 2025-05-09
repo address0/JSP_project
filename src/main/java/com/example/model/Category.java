@@ -7,7 +7,8 @@ public class Category {
     private Integer nbParentCategory;
     private String nmCategory;
     private String nmFullCategory;
-    private String mnExplain;
+    private String nmExplain;
+    private Integer cnLevel;
     private Integer cnOrder;
     private String ynUse;
     private String ynDelete;
@@ -47,12 +48,18 @@ public class Category {
         this.nmFullCategory = nmFullCategory;
     }
 
-    public String getMnExplain() {
-        return mnExplain;
+    public String getNmExplain() {
+        return nmExplain;
     }
 
-    public void setMnExplain(String mnExplain) {
-        this.mnExplain = mnExplain;
+    public void setNmExplain(String mnExplain) {
+        this.nmExplain = mnExplain;
+    }
+    public Integer getCnLevel() {
+        return cnLevel;
+    }
+    public void setCnLevel(Integer cnLevel) {
+        this.cnLevel = cnLevel;
     }
 
     public Integer getCnOrder() {

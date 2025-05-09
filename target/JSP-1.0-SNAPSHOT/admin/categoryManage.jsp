@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <h1>카테고리 관리</h1>
+<button onclick="location.href='/category/form.do'">카테고리 추가</button>
 
 <div class="category-wrapper">
 	<div class="category-column">
@@ -25,9 +26,4 @@
 		<ul class="category-list" id="sub-category"></ul>
 	</div>
 </div>
-
-<script>
-
-
-</script>
 

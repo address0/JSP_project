@@ -31,7 +31,7 @@ public class CategoryDAO {
                 category.setNbParentCategory(rs.getObject("nb_parent_category") != null ? rs.getInt("nb_parent_category") : null);
                 category.setNmCategory(rs.getString("nm_category"));
                 category.setNmFullCategory(rs.getString("nm_full_category"));
-                category.setMnExplain(rs.getString("nm_explain"));
+                category.setNmExplain(rs.getString("nm_explain"));
                 category.setCnOrder(rs.getObject("cn_order") != null ? rs.getInt("cn_order") : null);
                 category.setYnUse(rs.getString("yn_use"));
                 category.setYnDelete(rs.getString("yn_delete"));
@@ -60,7 +60,7 @@ public class CategoryDAO {
                 category.setNbParentCategory(null); // 상위 없음
                 category.setNmCategory(rs.getString("nm_category"));
                 category.setNmFullCategory(rs.getString("nm_full_category"));
-                category.setMnExplain(rs.getString("nm_explain"));
+                category.setNmExplain(rs.getString("nm_explain"));
                 category.setCnOrder(rs.getObject("cn_order") != null ? rs.getInt("cn_order") : null);
                 category.setYnUse(rs.getString("yn_use"));
                 category.setYnDelete(rs.getString("yn_delete"));
@@ -92,7 +92,7 @@ public class CategoryDAO {
                     category.setNbParentCategory(rs.getObject("nb_parent_category") != null ? rs.getInt("nb_parent_category") : null);
                     category.setNmCategory(rs.getString("nm_category"));
                     category.setNmFullCategory(rs.getString("nm_full_category"));
-                    category.setMnExplain(rs.getString("nm_explain"));
+                    category.setNmExplain(rs.getString("nm_explain"));
                     category.setCnOrder(rs.getObject("cn_order") != null ? rs.getInt("cn_order") : null);
                     category.setYnUse(rs.getString("yn_use"));
                     category.setYnDelete(rs.getString("yn_delete"));
@@ -107,5 +107,88 @@ public class CategoryDAO {
         }
         return categories;
     }
+
+    public int addCategory(Category category) {
+        String sql = "INSERT INTO TB_CATEGORY"+
+                "(nb_category, nb_parent_category, nm_category, nm_full_category, "+
+                "nm_explain, cn_level, cn_order, yn_use, yn_delete, no_register)"+
+                "VALUES (SEQ_TB_CATEGORY.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+//            pstmt.setInt(1, category.getNbCategory());
+            pstmt.setObject(1, category.getNbParentCategory());
+            pstmt.setString(2, category.getNmCategory());
+            pstmt.setString(3, category.getNmFullCategory());
+            pstmt.setString(4, category.getNmExplain());
+            pstmt.setObject(5, category.getCnLevel());
+            pstmt.setObject(6, category.getCnOrder());
+            pstmt.setString(7, category.getYnUse());
+            pstmt.setString(8, category.getYnDelete());
+            pstmt.setString(9, category.getNoRegister());
+
+            return pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public List<Category> getLevelCategoryList(int level) {
+        List<Category> categories = new ArrayList<>();
+        String sql = "SELECT * FROM TB_CATEGORY WHERE cn_level = ?";
+
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, level);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Category category = new Category();
+                    category.setNbCategory(rs.getInt("nb_category"));
+                    category.setNmCategory(rs.getString("nm_category"));
+                    categories.add(category);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return categories;
+    }
+
+    public Category getCategoryById(int id) {
+        String sql = "SELECT * FROM TB_CATEGORY WHERE nb_category = ?";
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Category category = new Category();
+                    category.setNbCategory(rs.getInt("nb_category"));
+                    category.setNmFullCategory(rs.getString("nm_full_category"));
+                    return category;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public int getNextOrderInLevel(int level) {
+        String sql = "SELECT NVL(MAX(cn_order), 0) + 1 FROM TB_CATEGORY WHERE cn_level = ?";
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, level);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 1;
+    }
+
 
 }
