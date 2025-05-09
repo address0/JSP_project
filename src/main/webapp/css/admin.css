@@ -75,3 +75,7 @@ ul.category-list li.selected {
     font-weight: bold;
     border-color: #007bff;
 }
+
+.disabled {
+    display: none;
+}

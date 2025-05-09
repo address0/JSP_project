@@ -29,6 +29,6 @@
 	} else { %> <jsp:include page="categoryManage.jsp" /> <%}
     %>
 </div>
-<script src="../script/admin.js"></script>
+<script src="../script/admin.js?v=<%= System.currentTimeMillis() %>"></script>
 </body>
 </html>

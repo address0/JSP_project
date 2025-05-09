@@ -9,8 +9,10 @@
 		<h3>대분류</h3>
 		<ul class="category-list" id="top-category">
 			<c:forEach var="category" items="${mainCategories}">
-				<li onclick="loadSubCategory(${category.nbCategory}, 'middle-category')">
-						${category.nmCategory}
+				<li onclick="loadSubCategory('${category.nbCategory}', 'middle-category')">
+					<span>${category.nmCategory}</span>
+					<button class="disabled" id="update-btn-${category.nbCategory}"
+					onclick="location.href='updateForm.do?id=${category.nbCategory}'">수정</button>
 				</li>
 			</c:forEach>
 		</ul>

@@ -1,5 +1,4 @@
 package com.example.command.category;
-
 import com.example.command.Command;
 import com.example.dao.CategoryDAO;
 import com.example.model.Category;
@@ -9,20 +8,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import jakarta.servlet.ServletContext;
 
-public class CategoryCreateCommand implements Command {
+public class CategoryUpdateCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ServletContext context = request.getServletContext();
-        CategoryDAO categoryDAO = new CategoryDAO(context);
+        request.setCharacterEncoding("UTF-8");
 
-        // 1. 파라미터 수집
+        int nbCategory = Integer.parseInt(request.getParameter("nbCategory"));
+
         String nmCategory = request.getParameter("nmCategory");
         String nmExplain = request.getParameter("nmExplain");
         String ynUse = request.getParameter("ynUse");
-        String ynDelete = "N"; // 항상 N
-        String noRegister = "admin"; // 임시 하드코딩 (로그인 연동 시 수정)
 
         Integer cnLevel = null;
         Integer nbParentCategory = null;
@@ -36,36 +33,32 @@ public class CategoryCreateCommand implements Command {
             }
         }
 
-        // 2. 상위 카테고리 기반 nmFullCategory 계산
+        ServletContext context = request.getServletContext();
+        CategoryDAO dao = new CategoryDAO(context);
+
         String nmFullCategory = nmCategory;
         if (nbParentCategory != null) {
-            Category parent = categoryDAO.getParentCategoryById(nbParentCategory);
+            Category parent = dao.getCategoryById(nbParentCategory);
             if (parent != null && parent.getNmFullCategory() != null) {
                 nmFullCategory = parent.getNmFullCategory() + " > " + nmCategory;
             }
         }
 
-        // 3. cnOrder 자동 계산 (현재 레벨에서 가장 큰 값 + 1)
-        int cnOrder = categoryDAO.getNextOrderInLevel(cnLevel);
-
-        // 4. Category 객체 생성
         Category category = new Category();
+        category.setNbCategory(nbCategory);
         category.setNbParentCategory(nbParentCategory);
         category.setNmCategory(nmCategory);
         category.setNmFullCategory(nmFullCategory);
         category.setNmExplain(nmExplain);
-        category.setCnLevel(cnLevel);
-        category.setCnOrder(cnOrder);
         category.setYnUse(ynUse);
-        category.setYnDelete(ynDelete);
-        category.setNoRegister(noRegister);
 
-        // 5. 등록
-        int result = categoryDAO.addCategory(category);
-        request.setAttribute("result", result > 0 ? "success" : "fail");
+        int result = dao.updateCategory(category);
 
-        System.out.println("CategoryCreateCommand: " + result);
-
-        response.sendRedirect("/category/topList.do");
+        if (result > 0) {
+            response.sendRedirect(request.getContextPath() + "/category/topList.do?result=updateSuccess");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/category/form?id=" + nbCategory + "&result=fail");
+        }
     }
 }
+

@@ -39,6 +39,9 @@ public class FrontController extends HttpServlet {
         commandMap.put("/category/form.do", new CategoryFormCommand());
         commandMap.put("/category/create.do", new CategoryCreateCommand());
         commandMap.put("/category/level.do", new LevelCategoryCommand());
+        commandMap.put("/category/updateForm.do", new CategoryUpdateFormCommand());
+        commandMap.put("/category/update.do", new CategoryUpdateCommand());
+
     }
 
     @Override

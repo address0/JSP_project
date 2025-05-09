@@ -156,7 +156,7 @@ public class CategoryDAO {
         return categories;
     }
 
-    public Category getCategoryById(int id) {
+    public Category getParentCategoryById(int id) {
         String sql = "SELECT * FROM TB_CATEGORY WHERE nb_category = ?";
         try (Connection conn = DBUtil.getConnection(context);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -166,6 +166,29 @@ public class CategoryDAO {
                     Category category = new Category();
                     category.setNbCategory(rs.getInt("nb_category"));
                     category.setNmFullCategory(rs.getString("nm_full_category"));
+                    return category;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Category getCategoryById(int id) {
+        String sql = "SELECT * FROM TB_CATEGORY WHERE nb_category = ?";
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Category category = new Category();
+                    category.setNbCategory(rs.getInt("nb_category"));
+                    category.setNmCategory(rs.getString("nm_category"));
+                    category.setNmFullCategory(rs.getString("nm_full_category"));
+                    category.setNmExplain(rs.getString("nm_explain"));
+                    category.setCnLevel(rs.getObject("cn_level") != null ? rs.getInt("cn_level") : null);
+                    category.setCnOrder(rs.getObject("cn_order") != null ? rs.getInt("cn_order") : null);
                     return category;
                 }
             }
@@ -189,6 +212,33 @@ public class CategoryDAO {
         }
         return 1;
     }
+
+    public int updateCategory(Category category) {
+        String sql = "UPDATE TB_CATEGORY SET " +
+                "nb_parent_category = ?, " +
+                "nm_category = ?, " +
+                "nm_full_category = ?, " +
+                "nm_explain = ?, " +
+                "yn_use = ? " +
+                "WHERE nb_category = ?";
+
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setObject(1, category.getNbParentCategory());
+            pstmt.setString(2, category.getNmCategory());
+            pstmt.setString(3, category.getNmFullCategory());
+            pstmt.setString(4, category.getNmExplain());
+            pstmt.setString(5, category.getYnUse());
+            pstmt.setInt(6, category.getNbCategory());
+
+            return pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 
 
 }
