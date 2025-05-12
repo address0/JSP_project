@@ -30,7 +30,7 @@
   <label for="nmDetailExplain">상세 설명</label>
   <textarea id="nmDetailExplain" name="nmDetailExplain" rows="4" required>${product.nmDetailExplain}</textarea>
   
-  <label for="idFile">파일 ID (이미지/첨부파일 등)</label>
+  <label for="idFile">첨부 이미지 (jpg / png / jfif 등)</label>
   <input type="file" id="idFile" name="idFile" accept="image/*" value="${product.idFile}">
   
   <label for="dtStartDate">판매 시작일 (yyyy-mm-dd)</label>

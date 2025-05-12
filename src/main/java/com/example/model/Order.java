@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Order {
     private String idOrder;
-    private String noUser;
+    private String idUser;
     private Integer qtOrderAmount;
     private Integer qtDeliMoney;
     private Integer qiDeliPeriod;
@@ -30,11 +30,11 @@ public class Order {
     public void setIdOrder(String idOrder) {
         this.idOrder = idOrder;
     }
-    public String getNoUser() {
-        return noUser;
+    public String getIdUser() {
+        return idUser;
     }
-    public void setNoUser(String noUser) {
-        this.noUser = noUser;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
     public Integer getQtOrderAmount() {
         return qtOrderAmount;

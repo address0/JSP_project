@@ -7,7 +7,7 @@ public class OrderItem {
     private String idOrder;                   // 주문 ID (FK)
     private Integer cnOrderItem;              // 주문 품목 순번
     private String noProduct;                 // 상품 코드
-    private String noUser;                    // 사용자 식별번호
+    private String idUser;                    // 사용자 식별번호
     private Integer qtUnitPrice;              // 주문 품목 단가
     private Integer qtOrderItem;              // 주문 품목 수량
     private Integer qtOrderItemAmount;        // 주문 품목 금액
@@ -48,12 +48,12 @@ public class OrderItem {
         this.noProduct = noProduct;
     }
 
-    public String getNoUser() {
-        return noUser;
+    public String getIdUser() {
+        return idUser;
     }
 
-    public void setNoUser(String noUser) {
-        this.noUser = noUser;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     public Integer getQtUnitPrice() {

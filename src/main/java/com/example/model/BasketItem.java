@@ -7,7 +7,7 @@ public class BasketItem {
     private Integer nbBasket;                  // 장바구니 식별번호 (FK)
     private Integer cnBasketItemOrder;         // 품목 순번
     private String noProduct;               // 상품 코드
-    private String noUser;                  // 사용자 식별번호 (FK)
+    private String idUser;                  // 사용자 식별번호 (FK)
     private Integer qtBasketItemPrice;      // 품목 단가
     private Integer qtBasketItemQty;        // 품목 수량
     private Integer qtBasketItemAmount;     // 품목 금액 (단가 * 수량)
@@ -48,12 +48,12 @@ public class BasketItem {
         this.noProduct = noProduct;
     }
 
-    public String getNoUser() {
-        return noUser;
+    public String getIdUser() {
+        return idUser;
     }
 
-    public void setNoUser(String noUser) {
-        this.noUser = noUser;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     public Integer getQtBasketItemPrice() {

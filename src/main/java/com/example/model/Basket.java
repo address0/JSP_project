@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Basket {
     private Integer nbBasket;
-    private String noUser;
+    private String idUser;
     private Integer qtBasketAmount;
     private String noRegister;
     private Date daFirstDate;
@@ -18,11 +18,11 @@ public class Basket {
     public void setNbBasket(Integer nbBasket) {
         this.nbBasket = nbBasket;
     }
-    public String getNoUser() {
-        return noUser;
+    public String getIdUser() {
+        return idUser;
     }
-    public void setNoUser(String noUser) {
-        this.noUser = noUser;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
     public Integer getQtBasketAmount() {
         return qtBasketAmount;

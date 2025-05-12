@@ -17,7 +17,6 @@ public class Content {
     private String noRegister;        // 최초 등록자 ID
     private Date daFirstDate;         // 최초 등록 일시
 
-    // --- Getters and Setters ---
     public String getIdFile() {
         return idFile;
     }
