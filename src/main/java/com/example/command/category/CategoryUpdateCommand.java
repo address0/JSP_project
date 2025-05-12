@@ -17,6 +17,18 @@ public class CategoryUpdateCommand implements Command {
 
         int nbCategory = Integer.parseInt(request.getParameter("nbCategory"));
 
+        ServletContext context = request.getServletContext();
+        CategoryDAO dao = new CategoryDAO(context);
+
+        Category original = dao.getCategoryById(nbCategory);
+        if (original == null) {
+            response.sendRedirect(request.getContextPath() + "/category/list.do");
+            return;
+        }
+
+        String oldName = original.getNmCategory();      // 예: "서울특별시"
+        int nbGroup = original.getNbGroup();
+
         String nmCategory = request.getParameter("nmCategory");
         String nmExplain = request.getParameter("nmExplain");
         String ynUse = request.getParameter("ynUse");
@@ -33,8 +45,7 @@ public class CategoryUpdateCommand implements Command {
             }
         }
 
-        ServletContext context = request.getServletContext();
-        CategoryDAO dao = new CategoryDAO(context);
+
 
         String nmFullCategory = nmCategory;
         if (nbParentCategory != null) {
@@ -53,6 +64,11 @@ public class CategoryUpdateCommand implements Command {
         category.setYnUse(ynUse);
 
         int result = dao.updateCategory(category);
+
+        if (!oldName.equals(nmCategory)) {
+            int replaceResult = dao.updateFullCategoryNameInGroup(oldName, nmCategory, nbGroup);
+            System.out.println("그룹 내 fullname 업데이트 수: " + replaceResult);
+        }
 
         if (result > 0) {
             response.sendRedirect(request.getContextPath() + "/category/topList.do?result=updateSuccess");

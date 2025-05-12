@@ -38,7 +38,7 @@ public class CategoryDAO {
                 category.setYnDelete(rs.getString("yn_delete"));
                 category.setNoRegister(rs.getString("no_register"));
                 category.setDaFirstDate(rs.getDate("da_first_date"));
-
+                category.setNbGroup(rs.getInt("nb_group"));
                 categories.add(category);
             }
         } catch (Exception e) {
@@ -67,6 +67,7 @@ public class CategoryDAO {
                 category.setYnDelete(rs.getString("yn_delete"));
                 category.setNoRegister(rs.getString("no_register"));
                 category.setDaFirstDate(rs.getDate("da_first_date"));
+                category.setNbGroup(rs.getInt("nb_group"));
 
                 categories.add(category);
             }
@@ -99,6 +100,7 @@ public class CategoryDAO {
                     category.setYnDelete(rs.getString("yn_delete"));
                     category.setNoRegister(rs.getString("no_register"));
                     category.setDaFirstDate(rs.getDate("da_first_date"));
+                    category.setNbGroup(rs.getInt("nb_group"));
 
                     categories.add(category);
                 }
@@ -203,6 +205,7 @@ public class CategoryDAO {
                     category.setNmExplain(rs.getString("nm_explain"));
                     category.setCnLevel(rs.getObject("cn_level") != null ? rs.getInt("cn_level") : null);
                     category.setCnOrder(rs.getObject("cn_order") != null ? rs.getInt("cn_order") : null);
+                    category.setNbGroup(rs.getInt("nb_group"));
                     return category;
                 }
             }
@@ -245,6 +248,26 @@ public class CategoryDAO {
             pstmt.setString(4, category.getNmExplain());
             pstmt.setString(5, category.getYnUse());
             pstmt.setInt(6, category.getNbCategory());
+
+            return pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int updateFullCategoryNameInGroup(String oldName, String newName, int nbGroup) {
+        String sql = "UPDATE TB_CATEGORY " +
+                "SET nm_full_category = REPLACE(nm_full_category, ?, ?) " +
+                "WHERE nb_group = ? AND INSTR(nm_full_category, ?) > 0";
+
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, oldName);
+            pstmt.setString(2, newName);
+            pstmt.setInt(3, nbGroup);
+            pstmt.setString(4, oldName);
 
             return pstmt.executeUpdate();
         } catch (Exception e) {
