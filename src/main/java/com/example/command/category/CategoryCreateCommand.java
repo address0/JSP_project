@@ -25,7 +25,7 @@ public class CategoryCreateCommand implements Command {
         String noRegister = "admin"; // 임시 하드코딩 (로그인 연동 시 수정)
 
         Integer cnLevel = null;
-        Integer nbParentCategory = null;
+        Integer nbParentCategory = 0;
         if (request.getParameter("cnLevel") != null && !request.getParameter("cnLevel").isEmpty()) {
             cnLevel = Integer.parseInt(request.getParameter("cnLevel"));
         }
@@ -38,10 +38,13 @@ public class CategoryCreateCommand implements Command {
 
         // 2. 상위 카테고리 기반 nmFullCategory 계산
         String nmFullCategory = nmCategory;
-        if (nbParentCategory != null) {
+        Integer nbGroup = 0;
+        if (nbParentCategory != 0) {
             Category parent = categoryDAO.getParentCategoryById(nbParentCategory);
             if (parent != null && parent.getNmFullCategory() != null) {
                 nmFullCategory = parent.getNmFullCategory() + " > " + nmCategory;
+                nbGroup = parent.getNbGroup();
+                System.out.println("nbGroup: " + nbGroup);
             }
         }
 
@@ -59,12 +62,11 @@ public class CategoryCreateCommand implements Command {
         category.setYnUse(ynUse);
         category.setYnDelete(ynDelete);
         category.setNoRegister(noRegister);
+        category.setNbGroup(nbGroup);
 
         // 5. 등록
         int result = categoryDAO.addCategory(category);
         request.setAttribute("result", result > 0 ? "success" : "fail");
-
-        System.out.println("CategoryCreateCommand: " + result);
 
         response.sendRedirect("/category/topList.do");
     }

@@ -14,6 +14,7 @@ public class Category {
     private String ynDelete;
     private String noRegister;
     private Date daFirstDate;
+    private Integer nbGroup;
 
     // Getter 및 Setter
     public int getNbCategory() {
@@ -100,5 +101,12 @@ public class Category {
 
     public void setDaFirstDate(Date daFirstDate) {
         this.daFirstDate = daFirstDate;
+    }
+
+    public Integer getNbGroup() {
+        return nbGroup;
+    }
+    public void setNbGroup(Integer nbGroup) {
+        this.nbGroup = nbGroup;
     }
 }
