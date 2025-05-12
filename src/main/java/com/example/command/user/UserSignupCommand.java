@@ -34,6 +34,7 @@ public class UserSignupCommand implements Command {
         }
 
         String userType = dao.getAllUsers().isEmpty() ? "20" : "10";
+
         boolean success = dao.insertUser(user, userType);
 
         response.sendRedirect(request.getContextPath() + "/user/joinResult.jsp?result=" + (success ? "success" : "fail"));

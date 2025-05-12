@@ -17,7 +17,11 @@
 		<c:when test="${not empty userList}">
 			<c:forEach var="user" items="${userList}">
 				<tr>
-					<td>${user.idUser}</td>
+					<td>${user.idUser}
+					<c:if test="${user.cdUserType == '20'}">
+						<span style="color: red;">[관리자]</span>
+					</c:if>
+					</td>
 					<td>${user.nmUser}</td>
 					<td>${user.nmEmail}</td>
 					<td>${user.noMobile}</td>
@@ -31,20 +35,22 @@
 						</c:choose>
 					</td>
 					<td>
-						<c:choose>
-							<c:when test="${user.stStatus == 'ST00'}">
-								<button onclick="location.href='/user/action.do?action=approve&idUser=${user.idUser}'">승인</button>
-							</c:when>
-							<c:when test="${user.stStatus == 'ST01'}">
-								<button onclick="location.href='/user/action.do?action=suspend&idUser=${user.idUser}'">일시정지</button>
-							</c:when>
-							<c:when test="${user.stStatus == 'ST02'}">
-								<button onclick="location.href='/user/action.do?action=delete&idUser=${user.idUser}'">탈퇴</button>
-							</c:when>
-							<c:when test="${user.stStatus == 'ST03'}">
-								<button onclick="location.href='/user/action.do?action=activate&idUser=${user.idUser}'">활성화</button>
-							</c:when>
-						</c:choose>
+						<c:if test="${user.cdUserType != '20'}">
+							<c:choose>
+								<c:when test="${user.stStatus == 'ST00'}">
+									<button onclick="location.href='/user/action.do?action=approve&idUser=${user.idUser}'">승인</button>
+								</c:when>
+								<c:when test="${user.stStatus == 'ST01'}">
+									<button onclick="location.href='/user/action.do?action=suspend&idUser=${user.idUser}'">일시정지</button>
+								</c:when>
+								<c:when test="${user.stStatus == 'ST02'}">
+									<button onclick="location.href='/user/action.do?action=delete&idUser=${user.idUser}'">탈퇴</button>
+								</c:when>
+								<c:when test="${user.stStatus == 'ST03'}">
+									<button onclick="location.href='/user/action.do?action=activate&idUser=${user.idUser}'">활성화</button>
+								</c:when>
+							</c:choose>
+						</c:if>
 					</td>
 				</tr>
 			</c:forEach>

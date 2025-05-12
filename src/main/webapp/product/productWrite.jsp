@@ -17,7 +17,7 @@
 <form action="<c:choose>
         <c:when test='${not empty product}'>update.do</c:when>
         <c:otherwise>create.do</c:otherwise>
-    </c:choose>" method="post">
+    </c:choose>" method="post" enctype="multipart/form-data">
   
   <!-- 상품 번호: 수정 시에만 포함 -->
   <c:if test="${not empty product}">
@@ -31,7 +31,7 @@
   <textarea id="nmDetailExplain" name="nmDetailExplain" rows="4" required>${product.nmDetailExplain}</textarea>
   
   <label for="idFile">파일 ID (이미지/첨부파일 등)</label>
-  <input type="text" id="idFile" name="idFile" value="${product.idFile}">
+  <input type="file" id="idFile" name="idFile" accept="image/*" value="${product.idFile}">
   
   <label for="dtStartDate">판매 시작일 (yyyy-mm-dd)</label>
   <input type="date" id="dtStartDate" name="dtStartDate" value="${product.dtStartDate}">

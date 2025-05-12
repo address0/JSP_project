@@ -78,7 +78,6 @@ public class UserDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
-                if ("20".equals(rs.getString("cd_user_type"))) continue;
                 User user = new User();
                 user.setIdUser(rs.getString("id_user"));
                 user.setNmUser(rs.getString("nm_user"));

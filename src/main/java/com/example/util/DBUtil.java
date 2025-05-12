@@ -15,6 +15,7 @@ public class DBUtil {
     public static Connection getConnection(ServletContext context) throws Exception {
         String walletPath = context.getRealPath("/WEB-INF/wallet").replace("\\", "/");
         Class.forName("oracle.jdbc.driver.OracleDriver");
-        return DriverManager.getConnection(url + walletPath, USER, PASSWORD);
+        return DriverManager.getConnection("jdbc:oracle:thin:@//192.168.217.202:1521/KOPODA", "da2519", "da19");
+//        return DriverManager.getConnection(url + walletPath, USER, PASSWORD);
     }
 }
