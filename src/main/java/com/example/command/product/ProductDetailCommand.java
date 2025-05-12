@@ -1,7 +1,9 @@
 package com.example.command.product;
 
 import com.example.command.Command;
+import com.example.dao.ContentDAO;
 import com.example.dao.ProductDAO;
+import com.example.model.Content;
 import com.example.model.Product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +29,11 @@ public class ProductDetailCommand implements Command {
             return;
         }
 
+        ContentDAO contentDAO = new ContentDAO(request.getServletContext());
+        Content Content = contentDAO.getContentById(product.getIdFile());
+
         request.setAttribute("product", product);
+        request.setAttribute("image", Content);
         System.out.println("ProductDetailCommand: " + product.getNmProduct());
         request.getRequestDispatcher("/product/productDetail.jsp").forward(request, response);
     }

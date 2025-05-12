@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 	<title>Title</title>
@@ -28,8 +29,17 @@
       <td>${product.nmDetailExplain}</td>
     </tr>
     <tr>
-      <th>파일 ID</th>
-      <td>${product.idFile}</td>
+      <th>상품 이미지</th>
+      <td>
+        <c:if test="${not empty image}">
+          <p><strong>상품 이미지:</strong></p>
+          <img src="${pageContext.request.contextPath}${image.nmFilePath}" width="300" alt="상품 이미지" />
+        </c:if>
+        <c:if test="${empty image}">
+          <p>상품 이미지가 없습니다.</p>
+          <img src="../images/noImage.png" width="300" alt="상품 이미지 없음" />
+        </c:if>
+      </td>
     </tr>
     <tr>
       <th>판매 시작일</th>

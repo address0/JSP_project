@@ -6,6 +6,7 @@ import com.example.command.product.*;
 import com.example.command.category.*;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet("*.do")
+@MultipartConfig(maxFileSize = 10 * 1024 * 1024)
 public class FrontController extends HttpServlet {
 
     private final Map<String, Command> commandMap = new HashMap<>();

@@ -21,7 +21,7 @@
 			<c:forEach var="product" items="${productList}">
 				<tr>
 					<td>${product.noProduct}</td>
-					<td>${product.nmProduct}</td>
+					<td><a href="detail.do?id=${product.noProduct}">${product.nmProduct}</a></td>
 					<td>${product.qtSalePrice}</td>
 					<td>${product.qtStock}</td>
 					<td>
