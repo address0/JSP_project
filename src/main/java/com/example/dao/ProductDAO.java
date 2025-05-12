@@ -7,6 +7,9 @@ import jakarta.servlet.ServletContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +99,7 @@ public class ProductDAO {
         }
     }
 
-    public int updateProduct(Product product) {
+    public boolean updateProduct(Product product) {
         String sql = "UPDATE TB_PRODUCT SET nm_product = ?, nm_detail_explain = ?, id_file = ?, dt_start_date = ?, dt_end_date = ?, qt_customer_price = ?, qt_sale_price = ?, qt_stock = ?, qt_delivery_fee = ? WHERE no_product = ?";
         try (Connection conn = DBUtil.getConnection(context);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -110,10 +113,10 @@ public class ProductDAO {
             pstmt.setInt(8, product.getQtStock());
             pstmt.setInt(9, product.getQtDeliveryFee());
             pstmt.setInt(10, product.getNoProduct());
-            return pstmt.executeUpdate();
+            return pstmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
 
@@ -126,6 +129,37 @@ public class ProductDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public boolean updateProductEndDate(Integer productCode) {
+        String sql = "UPDATE TB_PRODUCT SET dt_end_date = ? WHERE no_product = ?";
+        String yesterday = LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, yesterday);
+            pstmt.setInt(2, productCode);
+
+            int result = pstmt.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateProductStock(Integer productCode) {
+        String sql = "UPDATE TB_PRODUCT SET qt_stock = 0 WHERE no_product = ?";
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, productCode);
+
+            int result = pstmt.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

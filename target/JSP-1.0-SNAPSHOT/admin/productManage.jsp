@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <h1>상품 관리</h1>
 <button onclick="location.href='<%= request.getContextPath() %>/product/createForm.do'">상품 등록</button>
@@ -25,14 +26,21 @@
 					<td>${product.qtSalePrice}</td>
 					<td>${product.qtStock}</td>
 					<td>
+						<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 						<c:choose>
-							<c:when test="${product.qtStock > 0}">판매 중</c:when>
-							<c:otherwise>재고 없음</c:otherwise>
+							<c:when test="${product.dtEndDate > today}">
+								판매 중
+							</c:when>
+							<c:otherwise>
+								판매 종료
+							</c:otherwise>
 						</c:choose>
 					</td>
 					<td>
 						<button onclick="location.href='updateForm.do?id=${product.noProduct}'">수정</button>
 						<button onclick="location.href='delete.do?id=${product.noProduct}'">삭제</button>
+						<button onclick="location.href='update.do?id=${product.noProduct}&updateStatus=end'">판매종료</button>
+						<button onclick="location.href='update.do?id=${product.noProduct}&updateStatus=stock'">품절처리</button>
 					</td>
 				</tr>
 			</c:forEach>

@@ -79,5 +79,6 @@
 <c:if test="${empty product}">
   <p>해당 상품 정보를 찾을 수 없습니다.</p>
 </c:if>
+<button onclick="location.href='list.do'">목록으로</button>
 </body>
 </html>
