@@ -31,7 +31,11 @@
   <textarea id="nmDetailExplain" name="nmDetailExplain" rows="4" required>${product.nmDetailExplain}</textarea>
   
   <label for="idFile">첨부 이미지 (jpg / png / jfif 등)</label>
-  <input type="file" id="idFile" name="idFile" accept="image/*" value="${product.idFile}">
+  <input type="file" id="idFile" name="idFile" accept="image/*" value="${image.idFile}">
+  <c:if test="${not empty product.idFile}">
+    <p>현재 이미지:</p>
+    <img src="${pageContext.request.contextPath}${image.nmFilePath}" alt="기존 이미지" width="300">
+  </c:if>
   
   <label for="dtStartDate">판매 시작일 (yyyy-mm-dd)</label>
   <input type="date" id="dtStartDate" name="dtStartDate" value="${product.dtStartDate}">

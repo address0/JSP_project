@@ -1,7 +1,9 @@
 package com.example.command.product;
 
 import com.example.command.Command;
+import com.example.dao.ContentDAO;
 import com.example.dao.ProductDAO;
+import com.example.model.Content;
 import com.example.model.Product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +23,14 @@ public class ProductUpdateFormCommand implements Command {
         int productId = Integer.parseInt(idParam);
         ProductDAO dao = new ProductDAO(request.getServletContext());
         Product product = dao.getProductById(productId);
+
+        if (product.idFile != null) {
+            ContentDAO contentDAO = new ContentDAO(request.getServletContext());
+            Content content = contentDAO.getContentById(product.idFile);
+            if (content != null) {
+                request.setAttribute("image", content);
+            }
+        }
 
         if (product == null) {
             response.sendRedirect(request.getContextPath() + "/product/list.do");

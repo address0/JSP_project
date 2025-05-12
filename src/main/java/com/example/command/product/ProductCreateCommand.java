@@ -28,7 +28,6 @@ public class ProductCreateCommand implements Command {
         String saveFileName = UUID.randomUUID().toString() + "." + extension;
         String relativePath = "/upload/images/";
 
-        // 실제 저장 경로 예: 프로젝트의 real path
         String realPath = request.getServletContext().getRealPath(relativePath);
         File uploadDir = new File(realPath);
 
@@ -37,7 +36,6 @@ public class ProductCreateCommand implements Command {
         }
         byte[] fileBytes = filePart.getInputStream().readAllBytes();
 
-        // 2. Content 객체 구성
         String idFile = UUID.randomUUID().toString();
         String fullPath = realPath + File.separator + saveFileName;
         filePart.write(fullPath);

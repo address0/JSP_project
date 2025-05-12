@@ -77,4 +77,33 @@ public class ContentDAO {
         return null;
     }
 
+    public boolean updateContent(Content content) {
+        String sql = "UPDATE TB_CONTENT SET " +
+                "nm_org_file = ?, nm_save_file = ?, nm_file_path = ?, bo_save_file = ?, " +
+                "nm_file_ext = ?, cd_file_type = ?, da_save = SYSDATE, cn_hit = cn_hit + 1, " +
+                "id_service = ?, id_org_file = ?, no_register = ? " +
+                "WHERE id_file = ?";
+
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, content.getNmOrgFile());
+            pstmt.setString(2, content.getNmSaveFile());
+            pstmt.setString(3, content.getNmFilePath());
+            pstmt.setBytes(4, content.getBoSaveFile()); // BLOB
+            pstmt.setString(5, content.getNmFileExt());
+            pstmt.setString(6, content.getCdFileType());
+            pstmt.setString(7, content.getIdService());
+            pstmt.setString(8, content.getIdOrgFile());
+            pstmt.setString(9, content.getNoRegister());
+            pstmt.setString(10, content.getIdFile());
+
+            int result = pstmt.executeUpdate();
+            return result == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+             return false;
+        }
+    }
+
 }
