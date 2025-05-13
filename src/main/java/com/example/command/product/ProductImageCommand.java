@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import com.example.model.Content;
-import java.io.InputStream;
 import java.io.OutputStream;
 
 public class ProductImageCommand implements Command {
