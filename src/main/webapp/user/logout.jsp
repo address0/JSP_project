@@ -16,4 +16,5 @@
   <p>로그아웃되었습니다. 다시 로그인 해주세요.</p>
   <button onclick="location.href='${pageContext.request.contextPath}/user/loginForm.do'">로그인 페이지로 돌아가기</button>
 </div>
+</body>
 </html>

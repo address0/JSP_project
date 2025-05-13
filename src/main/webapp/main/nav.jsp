@@ -21,10 +21,39 @@
   </ul>
   <c:choose>
     <c:when test="${not empty sessionScope.status}">
-      <span class="material-symbols-outlined">account_circle</span>
+      <span class="material-symbols-outlined" id="userIcon">account_circle</span>
+      <div class="user-dropdown" id="userDropdown">
+        <p><strong>${requestScope.user.nmUser}</strong> 님</p>
+        <a href="<%= request.getContextPath() %>/user/mypage.do">마이페이지</a>
+        <a href="<%= request.getContextPath() %>/user/logout.do">로그아웃</a>
+      </div>
     </c:when>
     <c:otherwise>
       <a href="<%= request.getContextPath() %>/user/loginForm.do">로그인</a>
     </c:otherwise>
   </c:choose>
 </nav>
+<script>
+  const icon = document.getElementById('userIcon');
+  const dropdown = document.getElementById('userDropdown');
+  let timeoutId;
+  
+  if (icon && dropdown) {
+    const hideDropdown = () => {
+      timeoutId = setTimeout(() => {
+        dropdown.style.display = 'none';
+      }, 200);
+    };
+    
+    const showDropdown = () => {
+      clearTimeout(timeoutId);
+      dropdown.style.display = 'block';
+    };
+    
+    icon.addEventListener('mouseenter', showDropdown);
+    dropdown.addEventListener('mouseenter', showDropdown);
+    
+    icon.addEventListener('mouseleave', hideDropdown);
+    dropdown.addEventListener('mouseleave', hideDropdown);
+  }
+</script>

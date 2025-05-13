@@ -31,10 +31,10 @@ public class UserLoginCommand implements Command {
                 result = "inactive";
                 session.setAttribute("status", "inactive");
             } else {
-                session.setAttribute("id", user.getIdUser());
                 session.setAttribute("status", "user");
                 result = "success";
             }
+            session.setAttribute("id", user.getIdUser());
         } else {
             result = "fail";
         }
