@@ -11,8 +11,16 @@ body {
     justify-content: center;
     align-items: center;
 }
+#icon {
+    width: 60px;
+    margin-top: 30px;
+}
+#logo {
+    width: 120px;
+    margin: 10px 0;
+}
 .user-container {
-    width: 50%;
+    width: 60%;
     max-width: 1200px;
     height: 70%;
     max-height: 800px;
@@ -25,21 +33,30 @@ body {
     justify-content: center;
     align-items: center;
 }
+input[type="text"], input[type="password"] {
+    width: 80%;
+    padding: 12px;
+    margin: 10px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    display: block;
+}
 h1 {
     font-size: 32px;
-    color: #333333;
+    color: #000000;
     margin-bottom: 20px;
 }
 hr {
     width: 80%;
-    border: 1px solid #E0E0E0;
+    border: 1px solid #000000;
 }
 form {
     width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
+    margin: 30px 0;
 }
 input {
     width: 80%;
@@ -61,48 +78,45 @@ form > div {
     align-items: center;
 }
 input:focus {
-    border-color: #FF6F61;
+    border-color: #FF4DCA;
     outline: none;
 }
 .button-container {
-    width: 100%;
+    margin-top: 20px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
 }
+
 button {
-    width: 30%;
-    margin: 0px 10px;
-    font-weight: bold;
-}
-.login-button {
-    background-color: #FF6F61;
-    border: 2px solid #FF6F61;
-    color: white;
-    cursor: pointer;
+    width: 80%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
     font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 4px;
     font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* 로그인 버튼: 카카오 스타일 */
+.login-button {
+    background-color: #FF4DCA;
+    color: #FFFFFF;
 }
 .login-button:hover {
-    background-color: #FF4C3B;
-    box-shadow: 0 0 4px #FF6F61;
+    background-color: #DF41B0;
 }
-.login-button:active {
-    background-color: #FF3B2A;
-}
+
+/* 회원가입 버튼: 흰색 + 테두리 */
 .register-button {
-    background-color: #FFFFFF;
-    border: 2px solid #FF6F61;
-    color: #FF3B2A;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 4px;
+    background-color: white;
+    color: #DF41B0;
+    border: 1px solid #DF41B0;
 }
 .register-button:hover {
-    background-color: #F6D8C6;
-    box-shadow: 0 0 4px #D0D0D0;
+    background-color: #f7f7f7;
 }
 form p {
     position: absolute;
@@ -138,10 +152,4 @@ p.show {
     cursor: not-allowed;
     border: none;
     box-shadow: none;
-}
-.swal2-confirm {
-    min-width: 100px;
-}
-.swal2-styled {
-    min-width: 100px;
 }

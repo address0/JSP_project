@@ -15,30 +15,32 @@
 		<c:when test="${param.result == 'success'}">
 			<h1>로그인 완료</h1>
 			<p>환영합니다! 로그인에 성공했습니다.</p>
-			<button onclick="location.href='${pageContext.request.contextPath}/user/profile.do?id=${sessionScope.id}'">메인 페이지</button>
+			<button class="login-button" onclick="location.href='${pageContext.request.contextPath}/main.do'">홈으로</button>
 		</c:when>
 		
 		<c:when test="${param.result == 'admin'}">
 			<c:set var="manage" value="userManage" scope="session"/>
 			<h1>로그인 완료</h1>
-			<p>관리자님, 환영합니다! 관리자 페이지로 이동합니다.</p>
-			<button onclick="location.href='${pageContext.request.contextPath}/user/list.do'">관리자 페이지</button>
+			<p>관리자님, 환영합니다! 관리자용 페이지로 이동합니다.</p>
+			<button class="login-button" onclick="location.href='${pageContext.request.contextPath}/main.do'">홈으로</button>
 		</c:when>
 		
 		<c:when test="${param.result == 'fail'}">
 			<h1>미등록된 사용자</h1>
 			<p>로그인에 실패했습니다. 사용자 정보를 확인하세요.</p>
+			<button class="login-button" onclick="location.href='${pageContext.request.contextPath}/user/loginForm.do'">로그인 페이지로</button>
 		</c:when>
 		
 		<c:when test="${param.result == 'inactive'}">
 			<h1>비활성화된 사용자</h1>
 			<p>회원가입 승인 전입니다. 잠시만 기다려 주세요.</p>
-			<button onclick="location.href='${pageContext.request.contextPath}/user/loginForm.do'">로그인 페이지로</button>
+			<button class="login-button" onclick="location.href='${pageContext.request.contextPath}/user/loginForm.do'">로그인 페이지로</button>
 		</c:when>
 		
 		<c:otherwise>
 			<h1>로그인 실패</h1>
 			<p>알 수 없는 오류가 발생했습니다. 다시 시도하세요.</p>
+			<button class="login-button" onclick="location.href='${pageContext.request.contextPath}/user/loginForm.do'">로그인 페이지로</button>
 		</c:otherwise>
 	</c:choose>
 

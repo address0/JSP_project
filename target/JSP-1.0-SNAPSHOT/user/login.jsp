@@ -1,7 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Login</title>
+    <title>JOOZAG</title>
+    <link rel="icon" type="image/png" sizes="96x96" href="<%=request.getContextPath()%>/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%=request.getContextPath()%>/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath()%>/favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/favicon/favicon.ico">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/user.css?v=<%= System.currentTimeMillis() %>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -9,8 +13,10 @@
 </head>
 <body>
 <div class="user-container">
-    <h1>로그인 페이지</h1>
-    <hr />
+    <img src="<%= request.getContextPath() %>/images/JOOZAG_icon.png" alt="icon" id="icon" />
+    <img src="<%= request.getContextPath() %>/images/logo.png" alt="logo" id="logo" />
+<%--    <h1>로그인 페이지</h1>--%>
+<%--    <hr />--%>
     <form action="<%= request.getContextPath() %>/user/login.do" method="post">
         <div>
             <label for="email">아이디(이메일): </label>
