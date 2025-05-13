@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.command.Command;
+import com.example.command.categoryMap.*;
 import com.example.command.user.*;
 import com.example.command.product.*;
 import com.example.command.category.*;
@@ -40,6 +41,7 @@ public class FrontController extends HttpServlet {
         commandMap.put("/product/updateForm.do", new ProductUpdateFormCommand());
         commandMap.put("/product/update.do", new ProductUpdateCommand());
         commandMap.put("/product/delete.do", new ProductDeleteCommand());
+        commandMap.put("/product/image.do", new ProductImageCommand());
 
         commandMap.put("/category/list.do", new CategoryListCommand());
         commandMap.put("/category/topList.do", new TopCategoryCommand());
@@ -50,6 +52,8 @@ public class FrontController extends HttpServlet {
         commandMap.put("/category/updateForm.do", new CategoryUpdateFormCommand());
         commandMap.put("/category/update.do", new CategoryUpdateCommand());
 
+        commandMap.put("/categoryMap/mapForm.do", new MapFormCommand());
+        commandMap.put("/categoryMap/update.do", new MapUpdateCommand());
     }
 
     @Override

@@ -4,7 +4,7 @@
 
 <h1>상품 관리</h1>
 <button onclick="location.href='<%= request.getContextPath() %>/product/createForm.do'">상품 등록</button>
-
+<button onclick="location.href='<%= request.getContextPath() %>/categoryMap/mapForm.do'">상품 카테고리 편집</button>
 <table>
 	<thead>
 	<tr>

@@ -29,12 +29,7 @@ public class ProductDetailCommand implements Command {
             return;
         }
 
-        ContentDAO contentDAO = new ContentDAO(request.getServletContext());
-        Content Content = contentDAO.getContentById(product.getIdFile());
-
         request.setAttribute("product", product);
-        request.setAttribute("image", Content);
-        System.out.println("ProductDetailCommand: " + product.getNmProduct());
         request.getRequestDispatcher("/product/productDetail.jsp").forward(request, response);
     }
 }

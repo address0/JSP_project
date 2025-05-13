@@ -31,11 +31,11 @@
     <tr>
       <th>상품 이미지</th>
       <td>
-        <c:if test="${not empty image}">
+        <c:if test="${not empty product.idFile}">
           <p><strong>상품 이미지:</strong></p>
-          <img src="${pageContext.request.contextPath}${image.nmFilePath}" width="300" alt="상품 이미지" />
+          <img src="<%= request.getContextPath() %>/product/image.do?idFile=${product.idFile}" width="300" alt="상품 이미지" />
         </c:if>
-        <c:if test="${empty image}">
+        <c:if test="${empty product.idFile}">
           <p>상품 이미지가 없습니다.</p>
           <img src="../images/noImage.png" width="300" alt="상품 이미지 없음" />
         </c:if>

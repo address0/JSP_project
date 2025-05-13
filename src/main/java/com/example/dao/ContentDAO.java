@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import com.example.model.Content;
 import com.example.util.DBUtil;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContentDAO {
     private final ServletContext context;
@@ -106,4 +108,26 @@ public class ContentDAO {
         }
     }
 
+    public List<Content> getAllContents() {
+        String sql = "SELECT * FROM TB_CONTENT";
+        List<Content> contents = new ArrayList<>();
+
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Content content = new Content();
+                content.setIdFile(rs.getString("id_file"));
+                content.setNmOrgFile(rs.getString("nm_org_file"));
+                content.setBoSaveFile(rs.getBytes("bo_save_file")); // BLOB
+                content.setNmFilePath(rs.getString("nm_file_path"));
+
+                contents.add(content);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return contents;
+    }
 }
