@@ -66,7 +66,8 @@ public class CategoryUpdateCommand implements Command {
         int result = dao.updateCategory(category);
 
         if (!oldName.equals(nmCategory)) {
-            int replaceResult = dao.updateFullCategoryNameInGroup(oldName, nmCategory, nbGroup);
+            int baseLevel = original.getCnLevel();
+            int replaceResult = dao.updateFullCategoryPathFromRoot(nmFullCategory, nbGroup, baseLevel);
             System.out.println("그룹 내 fullname 업데이트 수: " + replaceResult);
         }
 

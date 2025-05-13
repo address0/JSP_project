@@ -21,11 +21,11 @@ public class CategoryProductMap {
         this.noProduct = noProduct;
     }
 
-    public Integer getNoCategory() {
+    public Integer getNbCategory() {
         return nbCategory;
     }
 
-    public void setNoCategory(Integer noCategory) {
+    public void setNbCategory(Integer noCategory) {
         this.nbCategory = noCategory;
     }
 

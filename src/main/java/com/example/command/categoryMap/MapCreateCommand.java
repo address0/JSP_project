@@ -27,7 +27,7 @@ public class MapCreateCommand implements Command {
         int cnOrder = categoryMapDAO.getMaxOrderForCategory(categoryId);
 
         categoryProductMap.setNoProduct(productId);
-        categoryProductMap.setNoCategory(categoryId);
+        categoryProductMap.setNbCategory(categoryId);
         categoryProductMap.setCnOrder(cnOrder);
 
         boolean result = categoryMapDAO.addCategoryMap(categoryProductMap);

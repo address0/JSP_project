@@ -25,7 +25,7 @@ public class MapUpdateCommand implements Command {
 
         List<CategoryProductMap> existingMaps = categoryMapDAO.findCategoryMapByProductId(Integer.parseInt(productId));
         Set<Integer> existingCategoryIds = existingMaps.stream()
-                .map(CategoryProductMap::getNoCategory)
+                .map(CategoryProductMap::getNbCategory)
                 .collect(Collectors.toSet());
         Set<Integer> selectedCategoryIdSet = new HashSet<>();
 
@@ -50,7 +50,7 @@ public class MapUpdateCommand implements Command {
             int cnOrder = categoryMapDAO.getMaxOrderForCategory(categoryId) + 1;
             CategoryProductMap newMap = new CategoryProductMap();
             newMap.setNoProduct(productId);
-            newMap.setNoCategory(categoryId);
+            newMap.setNbCategory(categoryId);
             newMap.setCnOrder(cnOrder);
             isSuccess &= categoryMapDAO.addCategoryMap(newMap);
         }

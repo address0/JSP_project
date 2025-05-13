@@ -16,6 +16,26 @@ public class CategoryMapDAO {
         this.context = context;
     }
 
+    public List<CategoryProductMap> findAllCategoryMaps() {
+        List<CategoryProductMap> categoryProductMaps = new ArrayList<>();
+        String sql = "SELECT * FROM TB_CATEGORY_PRODUCT_MAPPING";
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                CategoryProductMap categoryProductMap = new CategoryProductMap();
+                categoryProductMap.setNoProduct(rs.getString("no_product"));
+                categoryProductMap.setNbCategory(rs.getInt("nb_category"));
+                categoryProductMap.setNoRegister(rs.getString("no_register"));
+                categoryProductMap.setDaFirstDate(rs.getDate("da_first_date"));
+                categoryProductMaps.add(categoryProductMap);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return categoryProductMaps;
+    }
+
     public List<CategoryProductMap> findCategoryMapByProductId(int productId) {
         List<CategoryProductMap> categoryProductMaps = new ArrayList<>();
         String sql = "SELECT * FROM TB_CATEGORY_PRODUCT_MAPPING WHERE no_product = ?";
@@ -26,7 +46,7 @@ public class CategoryMapDAO {
                 if (rs.next()) {
                     CategoryProductMap categoryProductMap = new CategoryProductMap();
                     categoryProductMap.setNoProduct(rs.getString("no_product"));
-                    categoryProductMap.setNoCategory(rs.getInt("nb_category"));
+                    categoryProductMap.setNbCategory(rs.getInt("nb_category"));
                     categoryProductMap.setNoRegister(rs.getString("no_register"));
                     categoryProductMap.setDaFirstDate(rs.getDate("da_first_date"));
                     categoryProductMaps.add(categoryProductMap);
@@ -48,7 +68,7 @@ public class CategoryMapDAO {
                 while (rs.next()) {
                     CategoryProductMap categoryProductMap = new CategoryProductMap();
                     categoryProductMap.setNoProduct(rs.getString("no_product"));
-                    categoryProductMap.setNoCategory(rs.getInt("nb_category"));
+                    categoryProductMap.setNbCategory(rs.getInt("nb_category"));
                     categoryProductMap.setNoRegister(rs.getString("no_register"));
                     categoryProductMap.setDaFirstDate(rs.getDate("da_first_date"));
                     categoryProductMaps.add(categoryProductMap);
@@ -65,7 +85,7 @@ public class CategoryMapDAO {
         try (Connection conn = DBUtil.getConnection(context);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, categoryProductMap.getNoProduct());
-            pstmt.setInt(2, categoryProductMap.getNoCategory());
+            pstmt.setInt(2, categoryProductMap.getNbCategory());
             pstmt.setInt(3, categoryProductMap.getCnOrder());
             pstmt.setString(4, categoryProductMap.getNoRegister());
             return pstmt.executeUpdate() > 0;

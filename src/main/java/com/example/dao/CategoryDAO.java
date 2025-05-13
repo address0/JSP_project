@@ -256,18 +256,17 @@ public class CategoryDAO {
         }
     }
 
-    public int updateFullCategoryNameInGroup(String oldName, String newName, int nbGroup) {
+    public int updateFullCategoryPathFromRoot(String newFullName, int nbGroup, int baseLevel) {
         String sql = "UPDATE TB_CATEGORY " +
-                "SET nm_full_category = REPLACE(nm_full_category, ?, ?) " +
-                "WHERE nb_group = ? AND INSTR(nm_full_category, ?) > 0";
+                "SET nm_full_category = ? || ' > ' || nm_category " +
+                "WHERE nb_group = ? AND cn_level > ?";
 
         try (Connection conn = DBUtil.getConnection(context);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, oldName);
-            pstmt.setString(2, newName);
-            pstmt.setInt(3, nbGroup);
-            pstmt.setString(4, oldName);
+            pstmt.setString(1, newFullName);
+            pstmt.setInt(2, nbGroup);
+            pstmt.setInt(3, baseLevel);
 
             return pstmt.executeUpdate();
         } catch (Exception e) {
