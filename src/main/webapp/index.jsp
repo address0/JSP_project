@@ -5,11 +5,15 @@
 %>
 <html>
 <head>
-    <title>Landing Page</title>
+    <title>JOOZAG</title>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="96x96" href="<%=request.getContextPath()%>/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%=request.getContextPath()%>/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath()%>/favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/favicon/favicon.ico">
     <style>
         body {
             background-color: #F6D8C6;
@@ -73,8 +77,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
-            const target = '<%= isLoggedIn ? ctx + "/home.do" : ctx + "/user/loginForm.do" %>';
-            window.location.href = target;
+            <%--const target = '<%= isLoggedIn ? ctx + "/home.do" : ctx + "/user/loginForm.do" %>';--%>
+            window.location.href = '<%= request.getContextPath() %>/main.do';
         }, 2000);
     });
     

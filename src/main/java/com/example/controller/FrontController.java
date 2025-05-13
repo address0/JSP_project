@@ -5,6 +5,7 @@ import com.example.command.categoryMap.*;
 import com.example.command.user.*;
 import com.example.command.product.*;
 import com.example.command.category.*;
+import com.example.command.main.*;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -54,6 +55,8 @@ public class FrontController extends HttpServlet {
 
         commandMap.put("/categoryMap/mapForm.do", new MapFormCommand());
         commandMap.put("/categoryMap/update.do", new MapUpdateCommand());
+
+        commandMap.put("/main.do", new MainPageCommend());
     }
 
     @Override
