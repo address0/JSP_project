@@ -51,7 +51,7 @@
     </tr>
     <tr>
       <th>소비자가</th>
-      <td><fmt:formatNumber value="${product.qtCustomerPrice}" type="number" /> 원</td>
+      <td><fmt:formatNumber value="${product.qtCustomer}" type="number" /> 원</td>
     </tr>
     <tr>
       <th>판매가</th>

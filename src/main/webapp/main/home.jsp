@@ -16,7 +16,7 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath()%>/favicon/favicon-16x16.png">
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/favicon/favicon.ico">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main.css?v=<%= System.currentTimeMillis() %>">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/nav.css?v=<%= System.currentTimeMillis() %>">
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 	<style>
@@ -86,10 +86,6 @@
             cursor: pointer;
         }
 
-        .product:hover {
-            transform: translateY(-5px);
-        }
-
         /* 상품 이미지 */
         .product img {
             width: 100%;
@@ -131,6 +127,49 @@
             color: #d40050;
             margin: 0 10px 12px 10px;
         }
+
+        .sort-container {
+            max-width: 1024px;
+            margin: 20px auto 10px;
+            padding-left: 20px;
+            font-size: 14px;
+        }
+
+        .sort-container select {
+            padding: 4px 8px;
+            font-size: 14px;
+        }
+
+        .product-price {
+            margin: 0 10px 12px 10px;
+            font-size: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 13px;
+        }
+
+        .sale-price {
+            font-weight: bold;
+            color: #d40050;
+        }
+
+        .sale-price.only {
+            font-size: 15px;
+        }
+
+        .discount-rate {
+            color: #d40050;
+            font-weight: bold;
+            font-size: 13px;
+        }
+	
 	</style>
 </head>
 <body>
@@ -147,13 +186,54 @@
 		<div class="swiper-button-next"></div>
 	</div>
 	<h2>당신을 위한 추천 아이템</h2>
+	<div class="sort-container">
+		<form method="get" action="main.do">
+			<label for="sort">정렬 기준: </label>
+			<select name="sort" id="sort" onchange="this.form.submit()">
+				<option value="latest" ${param.sort == 'latest' ? 'selected' : ''}>최신순</option>
+				<option value="priceAsc" ${param.sort == 'priceAsc' ? 'selected' : ''}>낮은 가격순</option>
+				<option value="priceDesc" ${param.sort == 'priceDesc' ? 'selected' : ''}>높은 가격순</option>
+				<option value="name" ${param.sort == 'name' ? 'selected' : ''}>상품명순</option>
+				<option value="discount" ${param.sort == 'discount' ? 'selected' : ''}>할인율순</option>
+			</select>
+			
+			<label style="margin-left:20px;">
+				<input type="checkbox" name="onlySale" value="true"
+				${param.onlySale == 'true' ? 'checked' : ''} onchange="this.form.submit()" />
+				판매중인 상품만 보기
+			</label>
+		</form>
+	</div>
 	<div class="product-list">
 		<c:forEach var="product" items="${productList}">
 			<div class="product">
 				<img src="<%= request.getContextPath() %>/product/image.do?idFile=${product.idFile}" alt="${product.nmProduct}">
-				<p>${product.nmProduct}</p>
-				<p>${product.nmDetailExplain}</p>
-				<p><fmt:formatNumber value="${product.qtSalePrice}" type="number" /> 원</p>
+				<p class="product-name">${product.nmProduct}</p>
+				<p class="product-desc">${product.nmDetailExplain}</p>
+				
+				<!-- 가격 표시 로직 -->
+				<div class="product-price">
+					<c:choose>
+						<c:when test="${product.qtCustomer > product.qtSalePrice}">
+            <span class="original-price">
+              <fmt:formatNumber value="${product.qtCustomer}" type="number" />원
+            </span>
+							<span class="sale-price">
+              <fmt:formatNumber value="${product.qtSalePrice}" type="number" />원
+            </span>
+							<span class="discount-rate">
+              (
+              <fmt:formatNumber value="${(1 - product.qtSalePrice / product.qtCustomer) * 100}" maxFractionDigits="0" />%
+              할인)
+            </span>
+						</c:when>
+						<c:otherwise>
+            <span class="sale-price only">
+              <fmt:formatNumber value="${product.qtSalePrice}" type="number" />원
+            </span>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 		</c:forEach>
 	</div>

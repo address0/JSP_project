@@ -6,7 +6,7 @@
   <ul>
     <c:choose>
       <c:when test="${sessionScope.status == 'admin'}">
-        <li><a href="<%= request.getContextPath() %>/logout.do">상품 관리</a></li>
+        <li><a href="<%=request.getContextPath()%>/product/list.do">상품 관리</a></li>
         <li><a href="<%= request.getContextPath() %>/logout.do">카테고리 관리</a></li>
         <li><a href="<%= request.getContextPath() %>/logout.do">사용자 관리</a></li>
         <li><a href="<%= request.getContextPath() %>/logout.do">주문</a></li>
@@ -23,7 +23,7 @@
     <c:when test="${not empty sessionScope.status}">
       <span class="material-symbols-outlined" id="userIcon">account_circle</span>
       <div class="user-dropdown" id="userDropdown">
-        <p><strong>${requestScope.user.nmUser}</strong> 님</p>
+        <p><strong>${sessionScope.username}</strong> 님</p>
         <a href="<%= request.getContextPath() %>/user/mypage.do">마이페이지</a>
         <a href="<%= request.getContextPath() %>/user/logout.do">로그아웃</a>
       </div>

@@ -7,7 +7,6 @@ import jakarta.servlet.ServletContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class ProductDAO {
                 product.setIdFile(rs.getString("id_file"));
                 product.setDtStartDate(rs.getDate("dt_start_date"));
                 product.setDtEndDate(rs.getDate("dt_end_date"));
-                product.setQtCustomerPrice(rs.getInt("qt_customer_price"));
+                product.setQtCustomer(rs.getInt("qt_customer_price"));
                 product.setQtSalePrice(rs.getInt("qt_sale_price"));
                 product.setQtStock(rs.getInt("qt_stock"));
                 product.setQtDeliveryFee(rs.getInt("qt_delivery_fee"));
@@ -46,6 +45,64 @@ public class ProductDAO {
             e.printStackTrace();
         }
         return productList;
+    }
+
+    public List<Product> getProductsSortedBy(String sortType, boolean onlySale) {
+        List<Product> list = new ArrayList<>();
+
+        String sortSql;
+        switch (sortType) {
+            case "priceAsc":
+                sortSql = "ORDER BY QT_SALE_PRICE ASC";
+                break;
+            case "priceDesc":
+                sortSql = "ORDER BY QT_SALE_PRICE DESC";
+                break;
+            case "name":
+                sortSql = "ORDER BY NM_PRODUCT ASC";
+                break;
+            case "discount":
+                sortSql = "ORDER BY (1 - QT_SALE_PRICE / NULLIF(QT_CUSTOMER_PRICE, 0)) DESC";
+                break;
+            case "latest":
+                sortSql = "ORDER BY DA_FIRST_DATE DESC";
+                break;
+            case "default":
+            default:
+                sortSql = "ORDER BY NO_PRODUCT ASC";
+                break;
+        }
+
+        String whereClause = "";
+        if (onlySale) {
+            whereClause = "WHERE QT_STOCK > 0 AND DT_START_DATE <= SYSDATE AND DT_END_DATE >= SYSDATE";
+        }
+
+        String sql = "SELECT * FROM TB_PRODUCT " + whereClause + " " + sortSql;
+
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Product product = new Product();
+                product.setNoProduct(rs.getInt("NO_PRODUCT"));
+                product.setNmProduct(rs.getString("NM_PRODUCT"));
+                product.setNmDetailExplain(rs.getString("NM_DETAIL_EXPLAIN"));
+                product.setQtSalePrice(rs.getInt("QT_SALE_PRICE"));
+                product.setQtCustomer(rs.getInt("QT_CUSTOMER_PRICE"));
+                product.setQtStock(rs.getInt("QT_STOCK"));
+                product.setIdFile(rs.getString("ID_FILE"));
+                product.setDaFirstDate(rs.getDate("DA_FIRST_DATE"));
+                product.setDtStartDate(rs.getDate("DT_START_DATE"));
+                product.setDtEndDate(rs.getDate("DT_END_DATE"));
+                list.add(product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     public Product getProductById(int productId) {
@@ -63,7 +120,7 @@ public class ProductDAO {
                     product.setIdFile(rs.getString("id_file"));
                     product.setDtStartDate(rs.getDate("dt_start_date"));
                     product.setDtEndDate(rs.getDate("dt_end_date"));
-                    product.setQtCustomerPrice(rs.getInt("qt_customer_price"));
+                    product.setQtCustomer(rs.getInt("qt_customer_price"));
                     product.setQtSalePrice(rs.getInt("qt_sale_price"));
                     product.setQtStock(rs.getInt("qt_stock"));
                     product.setQtDeliveryFee(rs.getInt("qt_delivery_fee"));
@@ -88,7 +145,7 @@ public class ProductDAO {
             pstmt.setString(3, product.getIdFile());
             pstmt.setDate(4, product.getDtStartDate());
             pstmt.setDate(5, product.getDtEndDate());
-            pstmt.setInt(6, product.getQtCustomerPrice());
+            pstmt.setInt(6, product.getQtCustomer());
             pstmt.setInt(7, product.getQtSalePrice());
             pstmt.setInt(8, product.getQtStock());
             pstmt.setInt(9, product.getQtDeliveryFee());
@@ -108,7 +165,7 @@ public class ProductDAO {
             pstmt.setString(3, product.getIdFile());
             pstmt.setDate(4, product.getDtStartDate());
             pstmt.setDate(5, product.getDtEndDate());
-            pstmt.setInt(6, product.getQtCustomerPrice());
+            pstmt.setInt(6, product.getQtCustomer());
             pstmt.setInt(7, product.getQtSalePrice());
             pstmt.setInt(8, product.getQtStock());
             pstmt.setInt(9, product.getQtDeliveryFee());

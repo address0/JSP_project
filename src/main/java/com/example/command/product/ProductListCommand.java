@@ -23,9 +23,9 @@ public class ProductListCommand implements Command {
         String userStatus = (String) session.getAttribute("status");
 
         if ("admin".equals(userStatus)) {
-            request.getRequestDispatcher("/admin/manage.jsp?managePage=productManage").forward(request, response);
+            request.getRequestDispatcher("/admin/productManage.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("/admin/manage.jsp").forward(request, response);
+            request.getRequestDispatcher("/product/productList.jsp").forward(request, response);
         }
     }
 }

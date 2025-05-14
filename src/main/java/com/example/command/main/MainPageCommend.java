@@ -26,8 +26,14 @@ public class MainPageCommend implements Command {
             }
         }
 
+        String sort = request.getParameter("sort");
+        if (sort == null) {
+            sort = "default";
+        }
+        boolean onlySale = "true".equals(request.getParameter("onlySale"));
+
         ProductDAO productDAO = new ProductDAO(request.getServletContext());
-        List<Product> productList = productDAO.getAllProducts();
+        List<Product> productList = productDAO.getProductsSortedBy(sort, onlySale);
 
         request.setAttribute("productList", productList);
 

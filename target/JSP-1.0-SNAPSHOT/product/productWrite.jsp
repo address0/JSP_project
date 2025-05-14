@@ -43,8 +43,8 @@
   <label for="dtEndDate">판매 종료일 (yyyy-mm-dd)</label>
   <input type="date" id="dtEndDate" name="dtEndDate" value="${product.dtEndDate}">
   
-  <label for="qtCustomerPrice">소비자가</label>
-  <input type="number" id="qtCustomerPrice" name="qtCustomerPrice" required value="${product.qtCustomerPrice}">
+  <label for="qtCustomer">소비자가</label>
+  <input type="number" id="qtCustomer" name="qtCustomer" required value="${product.qtCustomer}">
   
   <label for="qtSalePrice">판매가</label>
   <input type="number" id="qtSalePrice" name="qtSalePrice" required value="${product.qtSalePrice}">

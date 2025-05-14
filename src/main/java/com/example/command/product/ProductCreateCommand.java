@@ -60,7 +60,7 @@ public class ProductCreateCommand implements Command {
         String nmDetailExplain = request.getParameter("nmDetailExplain");
         String dtStartDate = request.getParameter("dtStartDate");
         String dtEndDate = request.getParameter("dtEndDate");
-        Integer qtCustomerPrice = Integer.parseInt(request.getParameter("qtCustomerPrice"));
+        Integer qtCustomerPrice = Integer.parseInt(request.getParameter("qtCustomer"));
         Integer qtSalePrice = Integer.parseInt(request.getParameter("qtSalePrice"));
         Integer qtStock = Integer.parseInt(request.getParameter("qtStock"));
         Integer qtDeliveryFee = Integer.parseInt(request.getParameter("qtDeliveryFee"));
@@ -71,7 +71,7 @@ public class ProductCreateCommand implements Command {
         product.setIdFile(idFile);
         product.setDtStartDate(java.sql.Date.valueOf(dtStartDate));
         product.setDtEndDate(java.sql.Date.valueOf(dtEndDate));
-        product.setQtCustomerPrice(qtCustomerPrice);
+        product.setQtCustomer(qtCustomerPrice);
         product.setQtSalePrice(qtSalePrice);
         product.setQtStock(qtStock);
         product.setQtDeliveryFee(qtDeliveryFee);

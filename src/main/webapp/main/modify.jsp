@@ -10,7 +10,7 @@
 <html>
 <head>
 	<title>Profile</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/main.css?v=<%=System.currentTimeMillis()%>">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/nav.css?v=<%=System.currentTimeMillis()%>">
 </head>
 <body>
 <%

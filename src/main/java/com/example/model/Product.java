@@ -9,7 +9,7 @@ public class Product {
     public String idFile;
     public Date dtStartDate;
     public Date dtEndDate;
-    public Integer qtCustomerPrice;
+    public Integer qtCustomer;
     public Integer qtSalePrice;
     public Integer qtStock;
     public Integer qtDeliveryFee;
@@ -55,11 +55,11 @@ public class Product {
     public void setDtEndDate(Date dtEndDate) {
         this.dtEndDate = dtEndDate;
     }
-    public Integer getQtCustomerPrice() {
-        return qtCustomerPrice;
+    public Integer getQtCustomer() {
+        return qtCustomer;
     }
-    public void setQtCustomerPrice(Integer qtCustomerPrice) {
-        this.qtCustomerPrice = qtCustomerPrice;
+    public void setQtCustomer(Integer qtCustomer) {
+        this.qtCustomer = qtCustomer;
     }
     public Integer getQtSalePrice() {
         return qtSalePrice;
