@@ -28,7 +28,14 @@ public class ProductUpdateCommand implements Command {
         ContentDAO contentDAO = new ContentDAO(request.getServletContext());
         String updateStatus = request.getParameter("updateStatus");
 
+        Product existingProduct = productDAO.getProductById(noProduct);
+        String idFile = existingProduct.getIdFile();
+
+        Part filePart = request.getPart("idFile");
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
         if (updateStatus == null || updateStatus.isEmpty()) {
+
             String nmProduct = request.getParameter("nmProduct");
             String nmDetailExplain = request.getParameter("nmDetailExplain");
             String dtStartDate = request.getParameter("dtStartDate");
@@ -39,12 +46,11 @@ public class ProductUpdateCommand implements Command {
             Integer qtDeliveryFee = Integer.parseInt(request.getParameter("qtDeliveryFee"));
 
             // 파일 관련
-            String idFile = UUID.randomUUID().toString(); // 기존 이미지 ID
-            Part filePart = request.getPart("idFile");
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
 
             if (fileName != null && !fileName.isBlank()) {
-                // 새 이미지 업로드 시 갱신
+                contentDAO.deleteContent(idFile);
+                idFile = UUID.randomUUID().toString();
                 String extension = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
                 String saveFileName = UUID.randomUUID().toString() + "." + extension;
                 String relativePath = "/upload/images/";
@@ -55,7 +61,7 @@ public class ProductUpdateCommand implements Command {
                 System.out.println("fileName: " + fileName);
 
                 String fullPath = realPath + File.separator + saveFileName;
-                System.out.println("fullPath: " + fullPath);
+
                 byte[] fileBytes = filePart.getInputStream().readAllBytes();
                 filePart.write(fullPath);
 

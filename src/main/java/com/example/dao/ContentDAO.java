@@ -48,6 +48,20 @@ public class ContentDAO {
         }
     }
 
+    public boolean deleteContent(String idFile) {
+        String sql = "DELETE FROM TB_CONTENT WHERE id_file = ?";
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, idFile);
+            int result = pstmt.executeUpdate();
+            return result == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+             return false;
+        }
+    }
+
     public Content getContentById(String idFile) {
         String sql = "SELECT * FROM TB_CONTENT WHERE id_file = ?";
         try (Connection conn = DBUtil.getConnection(context);
