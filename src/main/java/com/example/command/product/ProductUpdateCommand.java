@@ -28,13 +28,13 @@ public class ProductUpdateCommand implements Command {
         ContentDAO contentDAO = new ContentDAO(request.getServletContext());
         String updateStatus = request.getParameter("updateStatus");
 
-        Product existingProduct = productDAO.getProductById(noProduct);
-        String idFile = existingProduct.getIdFile();
-
-        Part filePart = request.getPart("idFile");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-
         if (updateStatus == null || updateStatus.isEmpty()) {
+
+            Product existingProduct = productDAO.getProductById(noProduct);
+            String idFile = existingProduct.getIdFile();
+
+            Part filePart = request.getPart("idFile");
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
             String nmProduct = request.getParameter("nmProduct");
             String nmDetailExplain = request.getParameter("nmDetailExplain");
@@ -44,8 +44,6 @@ public class ProductUpdateCommand implements Command {
             Integer qtSalePrice = Integer.parseInt(request.getParameter("qtSalePrice"));
             Integer qtStock = Integer.parseInt(request.getParameter("qtStock"));
             Integer qtDeliveryFee = Integer.parseInt(request.getParameter("qtDeliveryFee"));
-
-            // 파일 관련
 
 
             if (fileName != null && !fileName.isBlank()) {

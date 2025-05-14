@@ -17,6 +17,7 @@
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/favicon/favicon.ico">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/nav.css?v=<%= System.currentTimeMillis() %>">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/productList.css?v=<%= System.currentTimeMillis() %>">
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 	<style>
@@ -66,110 +67,6 @@
 			font-size: 20px;
 			color: #333;
 		}
-
-        /* 전체 리스트 영역 */
-        .product-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 1024px;
-            margin: 0 auto;
-        }
-
-        /* 개별 상품 카드 */
-        .product {
-            position: relative;
-            overflow: hidden;
-            background-color: #fff;
-            transition: transform 0.2s ease;
-            cursor: pointer;
-        }
-
-        /* 상품 이미지 */
-        .product img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .product:hover img {
-            transform: scale(1.07);
-        }
-
-        /* 상품명 */
-        .product p:nth-of-type(1) {
-            font-size: 15px;
-            font-weight: bold;
-            margin: 10px 10px 4px 10px;
-            color: #111;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        /* 상세 설명 */
-        .product p:nth-of-type(2) {
-            font-size: 13px;
-            margin: 0 10px 6px 10px;
-            color: #666;
-            height: 32px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.4;
-        }
-
-        /* 가격 */
-        .product p:nth-of-type(3) {
-            font-size: 14px;
-            font-weight: bold;
-            color: #d40050;
-            margin: 0 10px 12px 10px;
-        }
-
-        .sort-container {
-            max-width: 1024px;
-            margin: 20px auto 10px;
-            padding-left: 20px;
-            font-size: 14px;
-        }
-
-        .sort-container select {
-            padding: 4px 8px;
-            font-size: 14px;
-        }
-
-        .product-price {
-            margin: 0 10px 12px 10px;
-            font-size: 14px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 6px;
-        }
-
-        .original-price {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 13px;
-        }
-
-        .sale-price {
-            font-weight: bold;
-            color: #d40050;
-        }
-
-        .sale-price.only {
-            font-size: 15px;
-        }
-
-        .discount-rate {
-            color: #d40050;
-            font-weight: bold;
-            font-size: 13px;
-        }
-	
 	</style>
 </head>
 <body>
@@ -206,7 +103,7 @@
 	</div>
 	<div class="product-list">
 		<c:forEach var="product" items="${productList}">
-			<div class="product">
+			<div class="product" onclick="location.href='${pageContext.request.contextPath}/product/detail.do?id=${product.noProduct}'">
 				<img src="<%= request.getContextPath() %>/product/image.do?idFile=${product.idFile}" alt="${product.nmProduct}">
 				<p class="product-name">${product.nmProduct}</p>
 				<p class="product-desc">${product.nmDetailExplain}</p>
@@ -224,7 +121,7 @@
 							<span class="discount-rate">
               (
               <fmt:formatNumber value="${(1 - product.qtSalePrice / product.qtCustomer) * 100}" maxFractionDigits="0" />%
-              할인)
+              )
             </span>
 						</c:when>
 						<c:otherwise>

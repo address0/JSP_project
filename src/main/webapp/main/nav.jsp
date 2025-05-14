@@ -12,10 +12,10 @@
         <li><a href="<%= request.getContextPath() %>/logout.do">주문</a></li>
       </c:when>
       <c:otherwise>
-        <li><a href="<%= request.getContextPath() %>/logout.do">카테고리</a></li>
+        <li><a href="<%= request.getContextPath() %>/product/list.do">카테고리별 상품</a></li>
         <li><a href="<%= request.getContextPath() %>/logout.do">장바구니</a></li>
         <li><a href="<%= request.getContextPath() %>/logout.do">주문내역</a></li>
-        <li><a href="<%= request.getContextPath() %>/logout.do">마이페이지</a></li>
+        
       </c:otherwise>
     </c:choose>
   </ul>
@@ -24,7 +24,7 @@
       <span class="material-symbols-outlined" id="userIcon">account_circle</span>
       <div class="user-dropdown" id="userDropdown">
         <p><strong>${sessionScope.username}</strong> 님</p>
-        <a href="<%= request.getContextPath() %>/user/mypage.do">마이페이지</a>
+        <a href="<%= request.getContextPath() %>/user/profile.do">마이페이지</a>
         <a href="<%= request.getContextPath() %>/user/logout.do">로그아웃</a>
       </div>
     </c:when>

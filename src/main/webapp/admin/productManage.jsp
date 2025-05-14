@@ -12,60 +12,55 @@
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin.css?v=<%=System.currentTimeMillis()%>">
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/nav.css?v=<%= System.currentTimeMillis() %>">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/productList.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
 <jsp:include page="/main/nav.jsp" />
 <h1>상품 관리</h1>
-<button onclick="location.href='<%= request.getContextPath() %>/product/createForm.do'">상품 등록</button>
-<button onclick="location.href='<%= request.getContextPath() %>/categoryMap/mapForm.do'">상품 카테고리 편집</button>
-<table>
-	<thead>
-	<tr>
-		<th>상품 ID</th>
-		<th>상품명</th>
-		<th>가격</th>
-		<th>재고</th>
-		<th>상태</th>
-		<th>관리</th>
-	</tr>
-	</thead>
-	<tbody>
+<div class="product-manage-toolbar">
+	<button onclick="location.href='<%= request.getContextPath() %>/product/createForm.do'">상품 등록</button>
+	<button onclick="location.href='<%= request.getContextPath() %>/categoryMap/mapForm.do'">상품 카테고리 편집</button>
+</div>
+
+<div class="product-manage-list">
 	<c:choose>
 		<c:when test="${not empty productList}">
 			<c:forEach var="product" items="${productList}">
-				<tr>
-					<td>${product.noProduct}</td>
-					<td><a href="detail.do?id=${product.noProduct}">${product.nmProduct}</a></td>
-					<td>${product.qtSalePrice}</td>
-					<td>${product.qtStock}</td>
-					<td>
-						<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
-						<c:choose>
-							<c:when test="${product.dtEndDate > today}">
-								판매 중
-							</c:when>
-							<c:otherwise>
-								판매 종료
-							</c:otherwise>
-						</c:choose>
-					</td>
-					<td>
+				<div class="product-card">
+					<div class="product-image">
+						<img src="<%= request.getContextPath() %>/product/image.do?idFile=${product.idFile}" alt="${product.nmProduct}" />
+					</div>
+					<div class="product-info">
+						<p class="product-title">
+							<a href="detail.do?id=${product.noProduct}">${product.nmProduct}</a>
+						</p>
+						<p class="product-stock">재고: ${product.qtStock}개</p>
+						<p class="product-price">
+							<fmt:formatNumber value="${product.qtSalePrice}" type="number" />원
+						</p>
+						<p class="product-status">
+							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+							<c:choose>
+								<c:when test="${product.dtEndDate > today}">판매 중</c:when>
+								<c:otherwise>판매 종료</c:otherwise>
+							</c:choose>
+						</p>
+					</div>
+					<div class="product-actions">
 						<button onclick="location.href='updateForm.do?id=${product.noProduct}'">수정</button>
 						<button onclick="location.href='delete.do?id=${product.noProduct}'">삭제</button>
 						<button onclick="location.href='update.do?id=${product.noProduct}&updateStatus=end'">판매종료</button>
 						<button onclick="location.href='update.do?id=${product.noProduct}&updateStatus=stock'">품절처리</button>
-					</td>
-				</tr>
+					</div>
+				</div>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
-			<tr>
-				<td colspan="6">등록된 상품이 없습니다.</td>
-			</tr>
+			<p class="no-products">등록된 상품이 없습니다.</p>
 		</c:otherwise>
 	</c:choose>
-	</tbody>
-</table>
+</div>
+
 <script src="../script/admin.js?v=<%= System.currentTimeMillis() %>"></script>
 </body>
 </html>

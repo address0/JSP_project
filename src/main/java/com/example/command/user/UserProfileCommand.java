@@ -14,7 +14,7 @@ import java.io.IOException;
 public class UserProfileCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
+        String id = (String) request.getSession().getAttribute("userId");
 
         UserDAO dao = new UserDAO(request.getServletContext());
         User user = dao.getUserById(id);

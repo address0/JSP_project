@@ -35,7 +35,7 @@ public class UserLoginCommand implements Command {
                 result = "success";
             }
             session.setAttribute("username", user.getNmUser());
-            session.setAttribute("id", user.getIdUser());
+            session.setAttribute("userId", user.getIdUser());
         } else {
             result = "fail";
         }
