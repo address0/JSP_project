@@ -1,18 +1,93 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: kopo
-  Date: 2025-05-02
-  Time: 오후 7:47
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.model.User" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-	<title>Profile</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/nav.css?v=<%=System.currentTimeMillis()%>">
+    <title>JOOZAG</title>
+    <link rel="icon" type="image/png" sizes="96x96" href="<%=request.getContextPath()%>/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%=request.getContextPath()%>/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath()%>/favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/favicon/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin.css?v=<%=System.currentTimeMillis()%>">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/nav.css?v=<%= System.currentTimeMillis() %>">
+    <style>
+        /* 프로필 및 수정 박스 */
+        #profile-container, #edit-container {
+            max-width: 480px;
+            margin: 20px auto;
+            padding: 24px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            font-size: 15px;
+        }
+        
+        #profile-container p,
+        #edit-container label {
+            margin-bottom: 12px;
+            display: block;
+            color: #222;
+            font-weight: 500;
+        }
+        
+        #profile-container p strong {
+            font-weight: bold;
+            margin-right: 4px;
+        }
+        
+        /* 입력 필드 */
+        #edit-container input[type="text"],
+        #edit-container input[type="email"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 14px;
+        }
+        
+        /* 버튼 공통 */
+        #profile-container button,
+        #edit-container button {
+            padding: 10px 16px;
+            font-size: 14px;
+            margin: 10px 6px 0 0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #FF4DCA;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        
+        #profile-container button:hover,
+        #edit-container button:hover {
+            background-color: #DF41B0;
+        }
+        
+        /* 탈퇴 버튼 - 보조색 */
+        #profile-container button:last-of-type {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        
+        #profile-container button:last-of-type:hover {
+            background-color: #ccc;
+        }
+        
+        /* 제목 */
+        h1, h2 {
+            text-align: center;
+            font-size: 22px;
+            margin-top: 40px;
+        }
+    
+    </style>
 </head>
 <body>
+<jsp:include page="/main/nav.jsp" />
 <%
     User user = (User) request.getAttribute("user");
     if (user == null) {

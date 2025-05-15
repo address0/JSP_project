@@ -20,7 +20,7 @@ public class TopCategoryCommand implements Command {
         List<Category> topCategories = dao.getTopCategories(); // nb_parent_category IS NULL
 
         request.setAttribute("mainCategories", topCategories);
-        request.getRequestDispatcher("/admin/manage.jsp?managePage=categoryManage").forward(request, response);
+        request.getRequestDispatcher("/admin/categoryManage.jsp").forward(request, response);
     }
 }
 

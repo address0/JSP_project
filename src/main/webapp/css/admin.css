@@ -70,10 +70,10 @@ ul.category-list li:hover {
 }
 
 ul.category-list li.selected {
-    background-color: #007bff;
+    background-color: #FF4DCA;
     color: white;
     font-weight: bold;
-    border-color: #007bff;
+    border-color: #FF4DCA;
 }
 
 .disabled {

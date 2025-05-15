@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.ArrayList;
+import com.example.model.Product;
 
 public class CategoryMapDAO {
     private final ServletContext context;
@@ -124,4 +125,30 @@ public class CategoryMapDAO {
         }
         return false;
     }
+
+    public List<Product> getProductsByCategory(int categoryId) {
+        String sql = "SELECT P.* FROM TB_PRODUCT P " +
+                "JOIN TB_CATEGORY_PRODUCT_MAP M ON P.NO_PRODUCT = M.NO_PRODUCT " +
+                "WHERE M.NB_CATEGORY = ?";
+        List<Product> list = new ArrayList<>();
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, categoryId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setNoProduct(rs.getInt("NO_PRODUCT"));
+                p.setNmProduct(rs.getString("NM_PRODUCT"));
+                p.setNmDetailExplain(rs.getString("NM_DETAIL_EXPLAIN"));
+                p.setDtStartDate(rs.getDate("DT_START_DATE"));
+                p.setDtEndDate(rs.getDate("DT_END_DATE"));
+                // ... 기타 필드
+                list.add(p);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }

@@ -43,6 +43,7 @@ public class FrontController extends HttpServlet {
         commandMap.put("/product/update.do", new ProductUpdateCommand());
         commandMap.put("/product/delete.do", new ProductDeleteCommand());
         commandMap.put("/product/image.do", new ProductImageCommand());
+        commandMap.put("/product/categoryList.do", new CategoryProductViewCommand());
 
         commandMap.put("/category/list.do", new CategoryListCommand());
         commandMap.put("/category/topList.do", new TopCategoryCommand());

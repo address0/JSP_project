@@ -60,6 +60,7 @@ public class UserDAO {
                 if (rs.next()) {
                     User user = new User();
                     user.setIdUser(rs.getString("id_user"));
+                    user.setNmUser(rs.getString("nm_user"));
                     user.setCdUserType(rs.getString("cd_user_type"));
                     user.setStStatus(rs.getString("st_status"));
                     return user;

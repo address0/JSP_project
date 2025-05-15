@@ -15,6 +15,6 @@ public class CategoryListCommand implements Command {
         CategoryDAO categoryDAO = new CategoryDAO(request.getServletContext());
         List<Category> categoryList = categoryDAO.getAllCategories();
         request.setAttribute("categoryList", categoryList);
-        request.getRequestDispatcher("/admin/manage.jsp?managePage=categoryManage").forward(request, response);
+        request.getRequestDispatcher("/admin/categoryManage.jsp").forward(request, response);
     }
 }

@@ -23,7 +23,7 @@ public class UserListCommand implements Command {
 
         request.setAttribute("userList", userList);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/manage.jsp?managePage=userManage");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/userManage.jsp");
         dispatcher.forward(request, response);
     }
 }
