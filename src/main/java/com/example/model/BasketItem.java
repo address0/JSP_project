@@ -13,6 +13,7 @@ public class BasketItem {
     private Integer qtBasketItemAmount;     // 품목 금액 (단가 * 수량)
     private String noRegister;              // 최초 등록자 ID
     private Date daFirstDate;               // 최초 등록 일시
+    private Product Product;
 
     // --- Getters and Setters ---
 
@@ -94,5 +95,13 @@ public class BasketItem {
 
     public void setDaFirstDate(Date daFirstDate) {
         this.daFirstDate = daFirstDate;
+    }
+
+    public Product getProduct() {
+        return Product;
+    }
+
+    public void setProduct(Product product) {
+        Product = product;
     }
 }

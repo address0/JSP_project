@@ -13,7 +13,7 @@
       </c:when>
       <c:otherwise>
         <li><a href="<%= request.getContextPath() %>/product/categoryList.do">카테고리별 상품</a></li>
-        <li><a href="<%= request.getContextPath() %>/logout.do">장바구니</a></li>
+        <li><a href="<%= request.getContextPath() %>/basket/list.do?id=${sessionScope.userId}">장바구니</a></li>
         <li><a href="<%= request.getContextPath() %>/logout.do">주문내역</a></li>
         
       </c:otherwise>
