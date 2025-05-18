@@ -56,6 +56,7 @@ public class FrontController extends HttpServlet {
 
         commandMap.put("/categoryMap/mapForm.do", new MapFormCommand());
         commandMap.put("/categoryMap/update.do", new MapUpdateCommand());
+        commandMap.put("/category/subListJson.do", new CategorySubListCommand());
 
         commandMap.put("/main.do", new MainPageCommend());
     }

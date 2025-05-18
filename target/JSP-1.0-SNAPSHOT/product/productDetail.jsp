@@ -133,7 +133,7 @@
           <button onclick="alert('주문 페이지로 이동합니다.')">구매하기</button>
         </c:otherwise>
       </c:choose>
-      <button onclick="location.href='list.do'">목록으로</button>
+      <button onclick="location.href='<%= request.getContextPath() %>/product/categoryList.do'">목록으로</button>
     </div>
   </c:if>
   <c:if test="${empty product}">
