@@ -1,15 +1,14 @@
 package com.example.dao;
 
+import com.example.model.*;
 import jakarta.servlet.ServletContext;
 import com.example.util.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import com.example.model.Basket;
-import com.example.model.BasketItem;
-import com.example.model.Product;
 import java.util.ArrayList;
+import java.sql.SQLException;
 
 public class CartDAO {
     private final ServletContext context;
@@ -283,5 +282,144 @@ public class CartDAO {
             return false;
         }
     }
+
+    public Product getProductFromBasketItemId(int basketItemId) {
+        String sql = "SELECT NO_PRODUCT FROM TB_BASKET_ITEM WHERE NB_BASKET_ITEM = ?";
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, basketItemId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String productId = rs.getString("NO_PRODUCT");
+                ProductDAO productDAO = new ProductDAO(context);
+                return productDAO.getProductById(Integer.parseInt(productId));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean insertOrderWithItems(Order order, List<OrderItem> items) {
+        String insertOrderSql = "INSERT INTO TB_ORDER (ID_ORDER, ID_USER, QT_ORDER_AMOUNT, NM_ORDER_PERSON, NM_RECEIVER, NO_DELIVERY_ZIPNO, NM_DELIVERY_ADDRESS, NM_RECEIVER_TELNO, NM_DELIVERY_SPACE, CD_ORDER_TYPE, ST_ORDER, ST_PAYMENT, DA_ORDER, NO_REGISTER, DA_FIRST_DATE) " +
+                "VALUES ('ORD-' || TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS') || LPAD(SEQ_TB_ORDER.NEXTVAL, 4, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE)";
+
+        String insertItemSql = "INSERT INTO TB_ORDER_ITEM (ID_ORDER_ITEM, ID_ORDER, CN_ORDER_ITEM, NO_PRODUCT, ID_USER, QT_UNIT_PRICE, QT_ORDER_ITEM, QT_ORDER_ITEM_AMOUNT, ST_PAYMENT, NO_REGISTER, DA_FIRST_DATE) " +
+                "VALUES ('ODI-' || TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS') || LPAD(SEQ_TB_ORDER_ITEM.NEXTVAL, 4, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE)";
+
+        try (Connection conn = DBUtil.getConnection(context)) {
+            conn.setAutoCommit(false);
+
+            String orderId = null;
+
+            try (PreparedStatement ps = conn.prepareStatement(insertOrderSql, new String[] {"ID_ORDER"})) {
+                ps.setString(1, order.getIdUser());
+                ps.setInt(2, order.getQtOrderAmount());
+                ps.setString(3, order.getNmOrderPerson());
+                ps.setString(4, order.getNmReceiver());
+                ps.setString(5, order.getNoDeliveryZipno());
+                ps.setString(6, order.getNmDeliverySpace());
+                ps.setString(7, order.getNmReceiverTelno());
+                ps.setString(8, order.getNmDeliverySpace());
+                ps.setString(9, order.getCdOrderType());
+                ps.setString(10, order.getStOrder());
+                ps.setString(11, order.getStPayment());
+                ps.setString(12, order.getIdUser()); // no_register
+
+                ps.executeUpdate();
+
+                // 생성된 주문 ID 가져오기
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        orderId = rs.getString(1);
+                    }
+                }
+            }
+
+            if (orderId == null) {
+                conn.rollback();
+                return false;
+            }
+
+            // 주문 품목 insert
+            int itemOrder = 1;
+            try (PreparedStatement ps = conn.prepareStatement(insertItemSql)) {
+                for (OrderItem item : items) {
+                    ps.setString(1, orderId);
+                    ps.setInt(2, itemOrder++);
+                    ps.setString(3, item.getNoProduct());
+                    ps.setString(4, item.getIdUser());
+                    ps.setInt(5, item.getQtUnitPrice());
+                    ps.setInt(6, item.getQtOrderItem());
+                    ps.setInt(7, item.getQtOrderItemAmount());
+                    ps.setString(8, order.getStPayment());
+                    ps.setString(9, order.getIdUser()); // no_register
+
+                    ps.addBatch();
+                }
+                ps.executeBatch();
+            }
+
+            conn.commit();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Order> getOrdersByUser(String userId) {
+        String sql = "SELECT * FROM TB_ORDER WHERE ID_USER = ? ORDER BY DA_ORDER DESC";
+        List<Order> list = new ArrayList<>();
+
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Order o = extractOrder(rs);
+                list.add(o);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Order> getAllOrders() {
+        String sql = "SELECT * FROM TB_ORDER ORDER BY DA_ORDER DESC";
+        List<Order> list = new ArrayList<>();
+
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Order o = extractOrder(rs);
+                list.add(o);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    private Order extractOrder(ResultSet rs) throws SQLException {
+        Order order = new Order();
+        order.setIdOrder(rs.getString("ID_ORDER"));
+        order.setIdUser(rs.getString("ID_USER"));
+        order.setQtOrderAmount(rs.getInt("QT_ORDER_AMOUNT"));
+        order.setNmOrderPerson(rs.getString("NM_ORDER_PERSON"));
+        order.setNmReceiver(rs.getString("NM_RECEIVER"));
+        order.setNmReceiverTelno(rs.getString("NM_RECEIVER_TELNO"));
+        order.setNoDeliveryZipno(rs.getString("NO_DELIVERY_ZIPNO"));
+        order.setNmDeliveryAddress(rs.getString("NM_DELIVERY_ADDRESS"));
+        order.setNmDeliverySpace(rs.getString("NM_DELIVERY_SPACE"));
+        order.setCdOrderDate(rs.getDate("DA_ORDER"));
+        order.setStOrder(rs.getString("ST_ORDER"));
+        order.setStPayment(rs.getString("ST_PAYMENT"));
+        return order;
+    }
+
+
 
 }

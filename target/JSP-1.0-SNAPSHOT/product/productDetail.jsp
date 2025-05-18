@@ -130,7 +130,7 @@
         </c:when>
         <c:otherwise>
           <button onclick="checkLoginAndOpenCart()">장바구니 담기</button>
-          <button onclick="alert('주문 페이지로 이동합니다.')">구매하기</button>
+          <button onclick="location.href='<%=request.getContextPath()%>/order/form.do?productId=${product.noProduct}'">구매하기</button>
         </c:otherwise>
       </c:choose>
       <button onclick="location.href='<%= request.getContextPath() %>/product/categoryList.do'">목록으로</button>

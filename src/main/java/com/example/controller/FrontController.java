@@ -66,6 +66,10 @@ public class FrontController extends HttpServlet {
         commandMap.put("/basket/delete.do", new BasketDeleteCommand());
         commandMap.put("/basket/updateQty.do", new BasketUpdateQtyCommand());
         commandMap.put("/basket/deleteAll.do", new BasketDeleteAllCommand());
+
+        commandMap.put("/order/form.do", new OrderFormCommand());
+        commandMap.put("/order/submit.do", new OrderSubmitCommand());
+        commandMap.put("/order/list.do", new OrderListCommand());
     }
 
     @Override

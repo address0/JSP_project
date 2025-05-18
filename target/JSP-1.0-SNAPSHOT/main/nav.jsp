@@ -9,13 +9,14 @@
         <li><a href="<%=request.getContextPath()%>/product/list.do">상품 관리</a></li>
         <li><a href="<%= request.getContextPath() %>/category/topList.do">카테고리 관리</a></li>
         <li><a href="<%= request.getContextPath() %>/user/list.do">사용자 관리</a></li>
-        <li><a href="<%= request.getContextPath() %>/logout.do">주문</a></li>
+        <li><a href="<%= request.getContextPath() %>/order/list.do">주문 목록</a></li>
       </c:when>
       <c:otherwise>
         <li><a href="<%= request.getContextPath() %>/product/categoryList.do">카테고리별 상품</a></li>
-        <li><a href="<%= request.getContextPath() %>/basket/list.do?id=${sessionScope.userId}">장바구니</a></li>
-        <li><a href="<%= request.getContextPath() %>/logout.do">주문내역</a></li>
-        
+        <c:if test="${not empty sessionScope.userId}">
+          <li><a href="<%= request.getContextPath() %>/basket/list.do?id=${sessionScope.userId}">장바구니 목록</a></li>
+          <li><a href="<%= request.getContextPath() %>/order/list.do">주문내역</a></li>
+        </c:if>
       </c:otherwise>
     </c:choose>
   </ul>

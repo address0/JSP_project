@@ -19,8 +19,11 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/nav.css?v=<%= System.currentTimeMillis() %>">
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
     <style>
-        table {
+        form {
             width: 90%;
+        }
+        table {
+            width: 100%;
             margin: 40px auto;
             border-collapse: collapse;
         }
@@ -56,9 +59,11 @@
 <h2 style="text-align:center;">🛒 장바구니</h2>
 
 <c:if test="${not empty basketItemList}">
+<form method="post" action="${pageContext.request.contextPath}/order/form.do">
     <table>
         <thead>
         <tr>
+            <th><input type="checkbox" onclick="toggleAll(this)"></th>
             <th>상품 이미지</th>
             <th>상품명</th>
             <th>단가</th>
@@ -71,6 +76,9 @@
         <c:set var="totalAmount" value="0" />
         <c:forEach var="item" items="${basketItemList}">
             <tr>
+                <td>
+                    <input type="checkbox" name="basketItems" value="${item.nbBasketItem}" />
+                </td>
                 <td>
                     <c:choose>
                         <c:when test="${not empty item.product.idFile}">
@@ -109,6 +117,10 @@
         </c:forEach>
         </tbody>
     </table>
+    <div style="text-align: right; margin-top: 20px;">
+        <button type="submit" style="padding: 10px 20px;">선택 상품 주문</button>
+    </div>
+</form>
 
     <div class="total">
         총 합계: <fmt:formatNumber value="${totalAmount}" type="number" /> 원
@@ -121,5 +133,11 @@
     </div>
 </c:if>
 <button onclick="location.href='<%=request.getContextPath()%>/basket/deleteAll.do?basketId=${basket.nbBasket}'" style="margin: 20px auto; display: block;">장바구니 비우기</button>
+<script>
+    function toggleAll(source) {
+        const checkboxes = document.querySelectorAll('input[name="basketItems"]');
+        checkboxes.forEach(cb => cb.checked = source.checked);
+    }
+</script>
 </body>
 </html>
