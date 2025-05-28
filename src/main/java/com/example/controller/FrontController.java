@@ -6,6 +6,7 @@ import com.example.command.user.*;
 import com.example.command.product.*;
 import com.example.command.category.*;
 import com.example.command.main.*;
+import com.example.command.order.*;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -56,8 +57,19 @@ public class FrontController extends HttpServlet {
 
         commandMap.put("/categoryMap/mapForm.do", new MapFormCommand());
         commandMap.put("/categoryMap/update.do", new MapUpdateCommand());
+        commandMap.put("/category/subListJson.do", new CategorySubListCommand());
 
         commandMap.put("/main.do", new MainPageCommend());
+
+        commandMap.put("/cart/add.do", new CartAddCommand());
+        commandMap.put("/basket/list.do", new BasketListCommand());
+        commandMap.put("/basket/delete.do", new BasketDeleteCommand());
+        commandMap.put("/basket/updateQty.do", new BasketUpdateQtyCommand());
+        commandMap.put("/basket/deleteAll.do", new BasketDeleteAllCommand());
+
+        commandMap.put("/order/form.do", new OrderFormCommand());
+        commandMap.put("/order/submit.do", new OrderSubmitCommand());
+        commandMap.put("/order/list.do", new OrderListCommand());
     }
 
     @Override

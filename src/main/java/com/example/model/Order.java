@@ -11,7 +11,7 @@ public class Order {
     private String nmOrderPerson;
     private String nmReceiver;
     private String noDeliveryZipno;
-    private String noDeliveryAddress;
+    private String nmDeliveryAddress;
     private String nmReceiverTelno;
     private String nmDeliverySpace;
     private String cdOrderType;
@@ -72,11 +72,11 @@ public class Order {
     public void setNoDeliveryZipno(String noDeliveryZipno) {
         this.noDeliveryZipno = noDeliveryZipno;
     }
-    public String getNoDeliveryAddress() {
-        return noDeliveryAddress;
+    public String getNmDeliveryAddress() {
+        return nmDeliveryAddress;
     }
-    public void setNoDeliveryAddress(String noDeliveryAddress) {
-        this.noDeliveryAddress = noDeliveryAddress;
+    public void setNmDeliveryAddress(String nmDeliveryAddress) {
+        this.nmDeliveryAddress = nmDeliveryAddress;
     }
     public String getNmReceiverTelno() {
         return nmReceiverTelno;

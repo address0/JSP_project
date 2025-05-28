@@ -129,16 +129,101 @@
           <button onclick="location.href='update.do?id=${product.noProduct}&updateStatus=stock'">품절 처리</button>
         </c:when>
         <c:otherwise>
-          <button onclick="alert('장바구니에 담겼습니다.')">장바구니 담기</button>
-          <button onclick="alert('주문 페이지로 이동합니다.')">구매하기</button>
+          <button onclick="checkLoginAndOpenCart()">장바구니 담기</button>
+          <button onclick="location.href='<%=request.getContextPath()%>/order/form.do?productId=${product.noProduct}'">구매하기</button>
         </c:otherwise>
       </c:choose>
-      <button onclick="location.href='list.do'">목록으로</button>
+      <button onclick="location.href='<%= request.getContextPath() %>/product/categoryList.do'">목록으로</button>
     </div>
   </c:if>
   <c:if test="${empty product}">
     <p>해당 상품 정보를 찾을 수 없습니다.</p>
   </c:if>
 </div>
+<div id="cart-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4);">
+  <div style="width:400px; margin:100px auto; background:white; padding:20px; border-radius:10px; position:relative;">
+    <h3>상품을 장바구니에 담기</h3>
+    <p><b>${product.nmProduct}</b></p>
+    <p>수량:
+      <button type="button" onclick="adjustQty(-1)">-</button>
+      <input type="text" id="qtyInput" value="1" style="width:30px; text-align:center;" readonly />
+      <button type="button" onclick="adjustQty(1)">+</button>
+    </p>
+    <button onclick="addToCart()">장바구니 담기</button>
+    <button onclick="closeCartModal()">닫기</button>
+  </div>
+</div>
+<div id="cart-result-modal" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
+  width:300px; background:white; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.3); z-index:1000;">
+  <p id="cart-result-message" style="font-size:16px; font-weight:bold; text-align:center;"></p>
+  <p style="text-align:center; margin-top:10px;">장바구니로 이동하시겠습니까?</p>
+  <div style="display:flex; justify-content:space-between; margin-top:20px;">
+    <button onclick="goToCart()" style="flex:1; margin-right:5px; padding:10px;">확인</button>
+    <button onclick="closeResultModal()" style="flex:1; margin-left:5px; padding:10px;">더 둘러보기</button>
+  </div>
+</div>
+<script>
+  function checkLoginAndOpenCart() {
+    const isLoggedIn = '${sessionScope.status}' === 'user';
+    if (!isLoggedIn) {
+      alert('로그인 후 이용 가능합니다.');
+      window.location.href= '<%=request.getContextPath()%>/user/loginForm.do';
+      return;
+    }
+    document.getElementById('cart-modal').style.display = 'block';
+  }
+
+  function closeCartModal() {
+    document.getElementById('cart-modal').style.display = 'none';
+  }
+
+  function adjustQty(change) {
+    const qtyInput = document.getElementById('qtyInput');
+    let qty = parseInt(qtyInput.value);
+    const stock = Number('${product.qtStock}'); // 재고 수량
+
+    qty = Math.min(stock, Math.max(1, qty + change));
+    const newQty = qty + change;
+
+    if (newQty > stock) {
+      alert('재고 수량을 초과했습니다.');
+      return;
+    }
+
+    if (newQty < 1) {
+      alert('최소 수량은 1개입니다.');
+      return;
+    }
+    qtyInput.value = qty;
+  }
+
+  function addToCart() {
+    const qty = document.getElementById('qtyInput').value;
+    const productId = '${product.noProduct}';
+
+    fetch('<%=request.getContextPath()%>/cart/add.do', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'productId=' + encodeURIComponent(productId) + '&quantity=' + encodeURIComponent(qty)
+    })
+    .then(res => res.text())
+    .then(msg => {
+      showCartResultModal(msg);
+    });
+  }
+  function showCartResultModal(message) {
+    document.getElementById('cart-result-message').innerText = message;
+    document.getElementById('cart-result-modal').style.display = 'block';
+  }
+
+  function closeResultModal() {
+    document.getElementById('cart-result-modal').style.display = 'none';
+    closeCartModal();
+  }
+
+  function goToCart() {
+    window.location.href = '<%=request.getContextPath()%>/basket/list.do?id=${sessionScope.userId}';
+  }
+</script>
 </body>
 </html>

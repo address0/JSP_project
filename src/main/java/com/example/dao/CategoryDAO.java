@@ -275,4 +275,35 @@ public class CategoryDAO {
         }
     }
 
+    // 사용자용 하위 카테고리
+    public List<Category> getCategoriesByParent(int parentId) {
+        List<Category> list = new ArrayList<>();
+        String sql;
+        if (parentId == 0) {
+            sql = "SELECT * FROM TB_CATEGORY WHERE NB_PARENT_CATEGORY IS NULL AND YN_USE = 'Y' AND YN_DELETE = 'N' ORDER BY CN_ORDER";
+        } else {
+            sql = "SELECT * FROM TB_CATEGORY WHERE NB_PARENT_CATEGORY = ? AND YN_USE = 'Y' AND YN_DELETE = 'N' ORDER BY CN_ORDER";
+        }
+//        String sql = "SELECT * FROM TB_CATEGORY WHERE NB_PARENT_CATEGORY = ? AND YN_USE = 'Y' AND YN_DELETE = 'N' ORDER BY CN_ORDER";
+        try (Connection conn = DBUtil.getConnection(context);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            if (parentId != 0) {
+                pstmt.setInt(1, parentId);
+            }
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Category cat = new Category();
+                    cat.setNbCategory(rs.getInt("NB_CATEGORY"));
+                    cat.setNmCategory(rs.getString("NM_CATEGORY"));
+                    cat.setCnLevel(rs.getInt("CN_LEVEL"));
+                    cat.setNbParentCategory(rs.getInt("NB_PARENT_CATEGORY"));
+                    list.add(cat);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }

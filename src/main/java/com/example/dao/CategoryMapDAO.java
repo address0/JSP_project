@@ -128,7 +128,7 @@ public class CategoryMapDAO {
 
     public List<Product> getProductsByCategory(int categoryId) {
         String sql = "SELECT P.* FROM TB_PRODUCT P " +
-                "JOIN TB_CATEGORY_PRODUCT_MAP M ON P.NO_PRODUCT = M.NO_PRODUCT " +
+                "JOIN TB_CATEGORY_PRODUCT_MAPPING M ON P.NO_PRODUCT = M.NO_PRODUCT " +
                 "WHERE M.NB_CATEGORY = ?";
         List<Product> list = new ArrayList<>();
         try (Connection conn = DBUtil.getConnection(context);
@@ -140,6 +140,10 @@ public class CategoryMapDAO {
                 p.setNoProduct(rs.getInt("NO_PRODUCT"));
                 p.setNmProduct(rs.getString("NM_PRODUCT"));
                 p.setNmDetailExplain(rs.getString("NM_DETAIL_EXPLAIN"));
+                p.setIdFile(rs.getString("ID_FILE"));
+                p.setQtCustomer(rs.getInt("QT_CUSTOMER_PRICE"));
+                p.setQtStock(rs.getInt("QT_STOCK"));
+                p.setQtSalePrice(rs.getInt("QT_SALE_PRICE"));
                 p.setDtStartDate(rs.getDate("DT_START_DATE"));
                 p.setDtEndDate(rs.getDate("DT_END_DATE"));
                 // ... 기타 필드
